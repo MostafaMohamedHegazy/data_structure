@@ -59,7 +59,7 @@ public class File {
 										while(afterLine.charAt(afterLineMargin) == ' ') {
 											afterLineMargin++;
 										}
-										if(noClosingTag.margin == afterLineMargin || XML.get(noClosingTag.line-1).contains("follower")) {
+										if(noClosingTag.margin >= afterLineMargin) {
 											XML.set(noClosingTag.line, XML.get(noClosingTag.line) + closingTag);
 										}
 										else if(noClosingTag.margin < afterLineMargin){
