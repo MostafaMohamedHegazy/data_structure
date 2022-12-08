@@ -1,80 +1,120 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class File {
 	
-	public static void checkConsistency(String[] XML) {
+	public static void checkConsistency(ArrayList<String> XML) {
 		int lineIndex = 0;
 		String line;
 		Stack<Tag> tags = new Stack<Tag>();
 		ArrayList<String> mistakes = new ArrayList<String>();
 		
-		while(lineIndex < XML.length) {
-			line = XML[lineIndex];
+		while(lineIndex < XML.size()) {
+			line = XML.get(lineIndex);
 			int charIndex = 0;
 			
-			
-			while(charIndex < line.length()-1) {
-				if(line.charAt(charIndex) == '<' && line.charAt(charIndex+1) != '?') {
-					String label = new String();
+			while(charIndex < line.length()) {
+				if(line.charAt(charIndex) == '<' && line.charAt(charIndex+1) != '?' && line.charAt(charIndex+1) != '!') {
+					String closingTagLabel = new String();
 					
 					if(line.charAt(charIndex+1) == '/') {
 						charIndex += 2;
 						
 						while (line.charAt(charIndex) != '>') {
-							label += line.charAt(charIndex);
+							closingTagLabel += line.charAt(charIndex);
 							charIndex++;
 						}
 						if(!tags.empty()) {
 							
-							if (label.equals((tags.peek()).label)) {
+							if (closingTagLabel.equals((tags.peek()).label)) {
 								tags.pop();
-								System.out.println("pop: " + label);
 							}
 							else {
-								Boolean noOpenTag = true;
+								Boolean noOpeningTagF = true;
+								Boolean noClosingTagF = false;
 								Stack<Tag> tmpTags = new Stack<Tag>();
 								tmpTags = tags;
-								tmpTags.pop();
+								Queue<Tag> noClosingTags = new LinkedList<Tag>();
+								noClosingTags.add(tmpTags.pop());
 								
 								while(!tmpTags.empty()) {
-									if(label.equals(tmpTags.peek().label)) {
-										Tag wrongTag = tags.pop();
-										String correctLine = XML[wrongTag.line];
-										wrongTag.label = "</" + wrongTag.label + ">";
-										correctLine = " ".repeat(wrongTag.margin) + wrongTag.label;
-										XML[wrongTag.line] = correctLine;
-										mistakes.add("No closing tag for" + wrongTag.label + "\n");
-										noOpenTag = false;
+									if(closingTagLabel.equals(tmpTags.peek().label)) {
+										noClosingTagF = true;
+										break;
 									}
-									tmpTags.pop();
+									noClosingTags.add(tmpTags.pop());
 								}
-								if (noOpenTag == true) {
-									Tag wrongTag = tags.peek();
-									String correctLine = XML[wrongTag.line];
-									label = "<" + label;
-									correctLine = " ".repeat(wrongTag.margin) + label;
-									XML[wrongTag.line] = correctLine;
-									mistakes.add("No opening tag for" + label + "\n");
+								
+								if(noClosingTagF == true) {
+									noOpeningTagF = false;
+									while(!noClosingTags.isEmpty()) {
+										Tag noClosingTag = noClosingTags.remove();
+										String afterLine = XML.get(noClosingTag.line+1);
+										String closingTag = "</" + noClosingTag.label + ">";
+										int afterLineMargin = 0;
+										while(afterLine.charAt(afterLineMargin) == ' ') {
+											afterLineMargin++;
+										}
+										if(noClosingTag.margin == afterLineMargin) {
+											XML.set(noClosingTag.line, XML.get(noClosingTag.line) + closingTag);
+										}
+										else if(noClosingTag.margin < afterLineMargin){
+											int i = 1;
+											while(!XML.get(noClosingTag.line+i).equals(" ".repeat(noClosingTag.margin))) {
+												i++;
+											}
+											XML.set(noClosingTag.line+i, XML.get(noClosingTag.line+i) + closingTag);
+										}
+										mistakes.add("No closing tag for" + noClosingTag.label + "\n");
+										tags.pop();
+									}
 								}
+								else if(noOpeningTagF == true) {
+									String myLine = XML.get(lineIndex);
+									String beforeLine = XML.get(lineIndex-1);
+									int myLineMargin = 0;
+									while(myLine.charAt(myLineMargin) == ' ') {
+										myLineMargin++;
+									}
+									int beforeLineMargin = 0;
+									while(beforeLine.charAt(beforeLineMargin) == ' ') {
+										beforeLineMargin++;
+									}
+									if(myLineMargin == beforeLineMargin) {
+										String margin = myLine.substring(0, myLineMargin);
+										String restOfLine = myLine.substring(myLineMargin, myLine.length());
+										myLine = margin + "<" + closingTagLabel + ">" + restOfLine;
+										XML.set(lineIndex, myLine);
+									}
+									else if(myLineMargin < beforeLineMargin) {
+										int i = lineIndex;
+										while(!XML.get(lineIndex-i).equals(" ".repeat(myLineMargin))) {
+											i--;
+										}
+										XML.set(lineIndex-i, XML.get(lineIndex-i) + "<" + closingTagLabel + ">");
+									}
+									
+									mistakes.add("No opening tag for" + closingTagLabel + "\n");
+								}
+								
 							}
 						}
 						else {
-							String correctLine = XML[0];
-							label = "<" + label + ">";
-							correctLine = label;
-							XML[0] = correctLine;
-							mistakes.add("No opening tag for" + label + "\n");
+							String correctLine = XML.get(0);
+							correctLine = "<" + closingTagLabel + ">";
+							XML.set(0, correctLine);
+							mistakes.add("No opening tag for" + closingTagLabel + "\n");
 						}
 					}
 					else {
 						charIndex++;
 						while(line.charAt(charIndex) != '>') {
-							label += line.charAt(charIndex);
+							closingTagLabel += line.charAt(charIndex);
 							charIndex++;
 						}
-						tags.push(new Tag(label, lineIndex, charIndex-label.length()-1)) ;
-						System.out.println("push: " + tags.peek().label);
+						tags.push(new Tag(closingTagLabel, lineIndex, charIndex-closingTagLabel.length()-1)) ;
 					}
 				}
 				else {
@@ -83,11 +123,12 @@ public class File {
 			}
 			lineIndex++;
 		}
+		
 		while(!tags.empty()) {
-			Tag wrongTag = tags.pop();
-			String correctLine = " ".repeat(wrongTag.margin) + "</" + wrongTag.label + ">";
-			XML[XML.length-1] += correctLine;
-			mistakes.add("No closing tag for" + wrongTag.label + "\n");
+			Tag noClosingTag = tags.pop();
+			String correctLine = " ".repeat(noClosingTag.margin) + "</" + noClosingTag.label + ">";
+			XML.add(correctLine);
+			mistakes.add("No closing tag for" + noClosingTag.label + "\n");
 		}
 		
 	}
