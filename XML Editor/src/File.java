@@ -26,28 +26,30 @@ public class File {
 							closingTagLabel += line.charAt(charIndex);
 							charIndex++;
 						}
+						
 						if(!tags.empty()) {
-							
 							if (closingTagLabel.equals((tags.peek()).label)) {
 								tags.pop();
 							}
 							else {
+								
 								Boolean noOpeningTagF = true;
 								Boolean noClosingTagF = false;
 								Stack<Tag> tmpTags = new Stack<Tag>();
-								tmpTags = tags;
+								tmpTags.addAll(tags);
 								Queue<Tag> noClosingTags = new LinkedList<Tag>();
-								noClosingTags.add(tmpTags.pop());
 								
 								while(!tmpTags.empty()) {
 									if(closingTagLabel.equals(tmpTags.peek().label)) {
 										noClosingTagF = true;
 										break;
 									}
+									
 									noClosingTags.add(tmpTags.pop());
 								}
 								
 								if(noClosingTagF == true) {
+									tags.pop();
 									noOpeningTagF = false;
 									while(!noClosingTags.isEmpty()) {
 										Tag noClosingTag = noClosingTags.remove();
@@ -57,7 +59,7 @@ public class File {
 										while(afterLine.charAt(afterLineMargin) == ' ') {
 											afterLineMargin++;
 										}
-										if(noClosingTag.margin == afterLineMargin) {
+										if(noClosingTag.margin == afterLineMargin || XML.get(noClosingTag.line-1).contains("follower")) {
 											XML.set(noClosingTag.line, XML.get(noClosingTag.line) + closingTag);
 										}
 										else if(noClosingTag.margin < afterLineMargin){
@@ -75,6 +77,7 @@ public class File {
 									String myLine = XML.get(lineIndex);
 									String beforeLine = XML.get(lineIndex-1);
 									int myLineMargin = 0;
+									
 									while(myLine.charAt(myLineMargin) == ' ') {
 										myLineMargin++;
 									}
@@ -82,7 +85,7 @@ public class File {
 									while(beforeLine.charAt(beforeLineMargin) == ' ') {
 										beforeLineMargin++;
 									}
-									if(myLineMargin == beforeLineMargin) {
+									if(myLineMargin >= beforeLineMargin) {
 										String margin = myLine.substring(0, myLineMargin);
 										String restOfLine = myLine.substring(myLineMargin, myLine.length());
 										myLine = margin + "<" + closingTagLabel + ">" + restOfLine;
@@ -102,13 +105,14 @@ public class File {
 							}
 						}
 						else {
-							String correctLine = XML.get(0);
-							correctLine = "<" + closingTagLabel + ">";
-							XML.set(0, correctLine);
+							String correctLine = XML.get(XML.size()-lineIndex-1);
+							correctLine += "<" + closingTagLabel + ">";
+							XML.set(XML.size()-lineIndex-1, correctLine);
 							mistakes.add("No opening tag for" + closingTagLabel + "\n");
 						}
 					}
 					else {
+						
 						charIndex++;
 						while(line.charAt(charIndex) != '>') {
 							closingTagLabel += line.charAt(charIndex);

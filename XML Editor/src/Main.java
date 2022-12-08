@@ -22,7 +22,7 @@ public class Main {
         s.add( "                    </topic>");
         s.add( "                </topics>");
         s.add( "            </post>");
-        s.add( "             <post>");
+        s.add( "            <post>");
         s.add( "                <body>");
         s.add( "                    Oh...Noo!");
         s.add( "                </body>");
