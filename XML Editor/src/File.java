@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class File {
 	
-	public static void checkConsistency(ArrayList<String> XML) {
+	public static ArrayList<String> checkConsistency(ArrayList<String> XML) {
 		int lineIndex = 0;
 		String line;
 		Stack<Tag> tags = new Stack<Tag>();
@@ -35,6 +35,7 @@ public class File {
 								
 								Boolean noOpeningTagF = true;
 								Boolean noClosingTagF = false;
+								Boolean mismatchingTagsF = false;
 								Stack<Tag> tmpTags = new Stack<Tag>();
 								tmpTags.addAll(tags);
 								Queue<Tag> noClosingTags = new LinkedList<Tag>();
@@ -48,7 +49,35 @@ public class File {
 									noClosingTags.add(tmpTags.pop());
 								}
 								
-								if(noClosingTagF == true) {
+								if(tags.peek().line == lineIndex) {
+									mismatchingTagsF = true;
+									noOpeningTagF = false;
+									noClosingTagF = false;
+								}
+								
+								if(mismatchingTagsF == true) {
+									
+									int i = 1;
+									while(line.charAt(i-1) != '>') {
+										i++;
+									}
+									if(line.charAt(i) == '1'||line.charAt(i) == '2'||line.charAt(i) == '3'||line.charAt(i) == '4'||line.charAt(i) == '5'||line.charAt(i) == '6'||line.charAt(i) == '7'||line.charAt(i) == '8'||line.charAt(i) == '9'||line.charAt(i) == '0') {
+										String correctLine = " ".repeat(tags.peek().margin) + "<id>" + line.charAt(i) + "</id>";
+										XML.set(lineIndex, correctLine);
+									}
+									else {
+										int j = i;
+										while(line.charAt(j+1) != '<') {
+											j++;
+										}
+										String name = line.substring(i, j);
+										String correctLine = " ".repeat(tags.peek().margin) + "<name>" + name + "</name>";
+										XML.set(lineIndex, correctLine);
+									}
+									mistakes.add("Mismatching tags in line " + (tags.peek().line+1) + "\n");
+									tags.pop();
+								}
+								else if(noClosingTagF == true) {
 									tags.pop();
 									noOpeningTagF = false;
 									while(!noClosingTags.isEmpty()) {
@@ -69,7 +98,7 @@ public class File {
 											}
 											XML.set(noClosingTag.line+i, XML.get(noClosingTag.line+i) + closingTag);
 										}
-										mistakes.add("No closing tag for" + noClosingTag.label + "\n");
+										mistakes.add("No closing tag for " + noClosingTag.label + " in line " +  (noClosingTag.line+1) + "\n");
 										tags.pop();
 									}
 								}
@@ -99,7 +128,7 @@ public class File {
 										XML.set(lineIndex-i, XML.get(lineIndex-i) + "<" + closingTagLabel + ">");
 									}
 									
-									mistakes.add("No opening tag for" + closingTagLabel + "\n");
+									mistakes.add("No opening tag for " + closingTagLabel + " in line " +  (lineIndex+1) + "\n");
 								}
 								
 							}
@@ -108,7 +137,7 @@ public class File {
 							String correctLine = XML.get(XML.size()-lineIndex-1);
 							correctLine += "<" + closingTagLabel + ">";
 							XML.set(XML.size()-lineIndex-1, correctLine);
-							mistakes.add("No opening tag for" + closingTagLabel + "\n");
+							mistakes.add("No opening tag for " + closingTagLabel + " in line " +  (lineIndex+1) + "\n");
 						}
 					}
 					else {
@@ -134,6 +163,7 @@ public class File {
 			XML.add(correctLine);
 			mistakes.add("No closing tag for" + noClosingTag.label + "\n");
 		}
+		return mistakes;
 		
 	}
 	
