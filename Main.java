@@ -143,9 +143,11 @@ public class Main {
                         }
                         else if(tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
                         {
-                            if(tag_list.get(m+1).tag_type=="both tags")
+                            if(m+2<tag_list.size())
                             {
-                                tag_list.get(m+1).in_Array=true;
+                                if (tag_list.get(m + 1).tag_type == "both tags" && ((tag_list.get(m + 2).tag_type == "closing tag") && (tag_list.get(m + 2).margin == tag_list.get(m).margin))) {
+                                    tag_list.get(m + 1).in_Array = true;
+                                }
                             }
 
                             if(tag_list.get(m).is_1stArray_element)
@@ -165,10 +167,13 @@ public class Main {
                         }
                         else if(!tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
                         {
-                            if(tag_list.get(m+1).tag_type=="both tags")
+                            if(m+2<tag_list.size())
                             {
-                                tag_list.get(m+1).in_Array=true;
+                                if (tag_list.get(m + 1).tag_type == "both tags" && ((tag_list.get(m + 2).tag_type == "closing tag") && (tag_list.get(m + 2).margin == tag_list.get(m).margin))) {
+                                    tag_list.get(m + 1).in_Array = true;
+                                }
                             }
+
 
                             if(tag_list.get(m).is_1stArray_element)
                             {
