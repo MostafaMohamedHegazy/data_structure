@@ -88,7 +88,7 @@ public class Main {
         }
         /*for(int m=0;m< tag_list.size();m++)
         {
-            System.out.println(tag_list.get(m).label+"      in_Array:? "+tag_list.get(m).in_Array);
+            System.out.println(tag_list.get(m).label+"      is object:? "+tag_list.get(m).is_json_Object);
         }*/
 
         //System.out.println("**********************************************************************hiiiiiiii");
@@ -320,7 +320,7 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<String> s = new ArrayList<String>();
-        s.add( "<users>");
+        /*s.add( "<users>");
         s.add( "    <user>");
         s.add( "        <id>1</id>");
         s.add( "        <name>Ahmed Ali</name>");
@@ -358,7 +358,32 @@ public class Main {
         s.add( "            </follower>");
         s.add( "        </followers>");
         s.add( "    </user>");
-        s.add( "</users>");
+        s.add( "</users>");*/
+
+        s.add("<bookstore>");
+        s.add("  <book >");
+        s.add("    <title >Everyday Italian</title>");
+        s.add("    <author>Giada De Laurentiis</author>");
+        s.add("    <year>2005</year>");
+        s.add("    <price>30.00</price>");
+        s.add("  </book>");
+        s.add("  <book >");
+        s.add("    <title >Harry Potter</title>");
+        s.add("    <author>J K. Rowling</author>");
+        s.add("    <year>2005</year>");
+        s.add("    <price>29.99</price>");
+        s.add("  </book>");
+        s.add("  <book >");
+        s.add("    <title >Learning XML</title>");
+        s.add("    <author>Erik T. Ray</author>");
+        s.add("    <year>2003</year>");
+        s.add("    <price>39.95</price>");
+        s.add("  </book>");
+        s.add("</bookstore>");
+
+
+
+
         //File.checkConsistency(s);
         ArrayList<String> st = new ArrayList<String>();
         st=Convert2JSON(s);

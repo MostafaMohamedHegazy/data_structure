@@ -104,7 +104,7 @@ public class Tag {
                 break;
             }
 
-            if((list.get(i).margin<list.get(j).margin) && ((list.get(j).tag_type=="opening tag" && list.get(i).tag_type=="opening tag") || (list.get(j).tag_type=="opening tag" && list.get(i).tag_type=="opening tag")))
+            if(((list.get(i).margin<list.get(j).margin) && (list.get(j).tag_type=="opening tag" && list.get(i).tag_type=="opening tag")) ||((list.get(i).margin<list.get(j).margin) && (list.get(j).tag_type=="both tags" && list.get(i).tag_type=="opening tag")))
             {
                 is_json_Object=true;
                 break;
