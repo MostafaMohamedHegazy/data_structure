@@ -7,6 +7,7 @@ public class Main {
 
     static ArrayList<String>  Convert2JSON( ArrayList<String> a){
         Stack<Tag> tag_s = new Stack<Tag>();
+        Stack<Tag> temp_stack= new Stack<Tag>();
         Queue<Tag> tag_q = new LinkedList<Tag>() ;
         //ArrayList<String> aux= new ArrayList<String>();
         ArrayList<Tag> tag_list = new ArrayList<Tag>();
@@ -25,8 +26,8 @@ public class Main {
                     if(a.get(i-1).contains("</"))
                     {
                         bothtags=true; openingtag=false; closingtag =false ;
-                        System.out.println("this is both tags line");
-                        System.out.println(""+(i-1)+" "+a.get((i-1)));
+                        //System.out.println("this is both tags line");
+                        //System.out.println(""+(i-1)+" "+a.get((i-1)));
                         tag_list.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
                         tag_q.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
                         break;
@@ -38,8 +39,8 @@ public class Main {
                         closingtag =false ;
                         bothtags=false;
 
-                        System.out.println("this is opening tag line");
-                        System.out.println(""+(i-1)+" "+a.get(i-1));
+                        //System.out.println("this is opening tag line");
+                        //System.out.println(""+(i-1)+" "+a.get(i-1));
                         qcount++;
                         //System.out.println(" qcount: "+qcount);
                         tag_list.add(new Tag(a.get(i-1),(i-1),j-1,"opening tag"));
@@ -62,8 +63,8 @@ public class Main {
                 bothtags =false ;
                 tag_list.add(new Tag(a.get((i-1)),(i-1),k-1,"closing tag"));
                 tag_q.add(new Tag(a.get((i-1)),(i-1),k-1,"closing tag"));
-                System.out.println("this is closing tag line");
-                System.out.println(""+(i-1)+" "+a.get((i-1)));
+                //System.out.println("this is closing tag line");
+                //System.out.println(""+(i-1)+" "+a.get((i-1)));
             }
             if((!closingtag && !openingtag && !bothtags))
             {
@@ -72,28 +73,41 @@ public class Main {
                 bothtags =false ;
                 tag_list.add(new Tag(a.get((i-1)),(i-1),0,"data"));
                 tag_q.add(new Tag(a.get((i-1)),(i-1),0,"data"));
-                System.out.println("this is data line");
-                System.out.println(""+(i-1)+" "+a.get((i-1)));
+                //System.out.println("this is data line");
+                //System.out.println(""+(i-1)+" "+a.get((i-1)));
 
             }
             openingtag=false ; closingtag =false ; bothtags=false;
         }
         for(int m=0;m< tag_list.size();m++)
         {
+            //System.out.println(tag_list.get(m).label+" is array: ? "+tag_list.get(m).isArray(tag_list));
+            //System.out.println(tag_list.get(m).label+" is object: ? "+tag_list.get(m).isObject(tag_list));
             tag_list.get(m).isArray(tag_list);
+            tag_list.get(m).isObject(tag_list);
         }
-        System.out.println("**********************************************************************hiiiiiiii");
+        /*for(int m=0;m< tag_list.size();m++)
+        {
+            System.out.println(tag_list.get(m).label+"      in_Array:? "+tag_list.get(m).in_Array);
+        }*/
+
+        //System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
         int line=0;
         boolean IS_Array=false;
-        System.out.println("{");
+        String stemp="";
+        //System.out.println("{");
         b.add("{\n");
         Tag T;
         String compare_margins="";
+        int arr_element_count=0;
+
         for(int m=0;m< tag_list.size();m++)
         {
+
             if(tag_list.get(m).tag_type=="opening tag")
             {
+
                 if(!tag_s.isEmpty())
                 {
                     if (tag_s.peek().margin > tag_list.get(m).margin) {
@@ -106,64 +120,119 @@ public class Main {
                         compare_margins = "equal";
                     }
                 }
-
+                temp_stack.push(tag_list.get(m));
                 T=tag_list.get(m);
-                tag_s.push(tag_list.get(m))   ;
+                tag_s.push(tag_list.get(m))  ;
                 String st0="\t";
                 for(int t=0; t<tag_list.get(m).label.length();t++)
                 {
                     if(tag_list.get(m).label.charAt(t)=='<')
                     {
+                        stemp=st0+"";
                         st0=st0+"\"";
+
                     }
                     else if(tag_list.get(m).label.charAt(t)=='>')
                     {
-                        if(tag_list.get(m).is_array)
-                        {
-                            st0=st0+"\":[";
-                            line=m;
-                            num=tag_list.get(m).margin;
-                            IS_Array=true;
 
-                        }
-                        else
+                        if(tag_list.get(m).is_json_Object && ! tag_list.get(m).is_Array_element )
                         {
                             st0=st0+"\":{";
+                            line=m;
+                            num=tag_list.get(m).margin;
                         }
+                        else if(tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
+                        {
+                            if(tag_list.get(m+1).tag_type=="both tags")
+                            {
+                                tag_list.get(m+1).in_Array=true;
+                            }
+
+                            if(tag_list.get(m).is_1stArray_element)
+                            {
+                                arr_element_count++;
+                                st0=st0+"\":[ {";
+                            }
+                            else if(!tag_list.get(m).is_1stArray_element)
+                            {
+                                arr_element_count++;
+                                st0=stemp+"{";
+                            }
+                        }
+                        else if(!tag_list.get(m).is_json_Object && !tag_list.get(m).is_Array_element )
+                        {
+                            st0=st0+"\": ";
+                        }
+                        else if(!tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
+                        {
+                            if(tag_list.get(m+1).tag_type=="both tags")
+                            {
+                                tag_list.get(m+1).in_Array=true;
+                            }
+
+                            if(tag_list.get(m).is_1stArray_element)
+                            {
+                                arr_element_count++;
+                                st0=st0+"\":[ ";
+                            }
+                            else if(!tag_list.get(m).is_1stArray_element)
+                            {
+                                st0="";
+                            }
+
+                        }
+
                         break;
                     }
                     else
                     {
-                        st0=st0+tag_list.get(m).label.charAt(t);
+                        if(!(tag_list.get(m).is_Array_element && !tag_list.get(m).is_1stArray_element))
+                        {
+                            st0 = st0 + tag_list.get(m).label.charAt(t);
+                        }
+                        //else{st0 = st0 +"";}
                     }
                 }
-                System.out.println(st0);
+                //System.out.println(st0);
                 b.add(st0+"\n");
             }
 
             if(tag_list.get(m).tag_type=="closing tag")
             {
-                Tag poped_tag;
+                Tag poped_tag ,poped_tag2;
                 Tag aux_tag=tag_list.get(m);
-                { poped_tag=tag_s.pop(); }
+                poped_tag=tag_s.pop();
+                poped_tag2=temp_stack.pop();
+
                 String st0="\t";
                 int count=0;
                 for(int t=0;t<tag_list.get(m).label.length();t++)
                 {
                     if(tag_list.get(m).label.charAt(t)=='<')
                     {
-                        if(tag_list.get(m).margin==num && num>0 && IS_Array)
+                        if( poped_tag2.is_array )
                         {
-                            st0=st0+"]";
+                            st0=st0+"] }";
+                            arr_element_count=0;
                             num=0;
                         }
                         else
                         {
-                            st0=st0+"}";
+                            if(poped_tag2.is_json_Object )
+                            {
+                                st0=st0+"}";
+
+                            }
+                            if(!poped_tag2.is_json_Object  )
+                            {
+                                st0=st0+"";
+                            }
                         }
+
                         if(m<tag_list.size()-1)
                         {
-                            if (compare_margins == "equal" || tag_list.get(m + 1).margin==aux_tag.margin) {
+                            if (compare_margins == "equal" || tag_list.get(m + 1).margin==aux_tag.margin)
+                            {
                                 st0 = st0 + ",";
                             }
                         }
@@ -171,13 +240,18 @@ public class Main {
                     }
                     st0=st0+" ";
                 }
-                System.out.println(st0);
+                //System.out.println(st0);
                 b.add(st0+"\n");
             }
 
             if(tag_list.get(m).tag_type=="both tags")
             {
+
                 String st0="\t";
+                if(tag_list.get(m).in_Array)
+                {
+                    st0=st0+"{";
+                }
                 int count=0;
                 for(int t=0; t<tag_list.get(m).label.length();t++)
                 {
@@ -206,7 +280,11 @@ public class Main {
                         st0=st0+tag_list.get(m).label.charAt(t);
                     }
                 }
-                System.out.println(st0);
+                //System.out.println(st0);
+                if(tag_list.get(m).in_Array)
+                {
+                    st0=st0+"}";
+                }
                 b.add(st0+"\n");
             }
 
@@ -225,12 +303,12 @@ public class Main {
 
                 }
                 st0=st0+"\"";
-                System.out.println(st0);
+                //System.out.println(st0);
                 b.add(st0+"\n");
             }
 
         }
-        System.out.println("}");
+        //System.out.println("}");
         b.add("}\n");
         return b;
     }
@@ -277,11 +355,12 @@ public class Main {
         s.add( "    </user>");
         s.add( "</users>");
         //File.checkConsistency(s);
-
-        Convert2JSON(s);
-    	/*for (int i = 0; i < s.size(); i++) {
-			System.out.print(Convert2JSON(s).get(i));
-		}*/
+        ArrayList<String> st = new ArrayList<String>();
+        st=Convert2JSON(s);
+        for (int i = 0; i < st.size(); i++) {
+            System.out.print(st.get(i));
+        }
 
     }
 }
+
