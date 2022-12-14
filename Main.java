@@ -128,7 +128,7 @@ public class Main {
                 {
                     if(tag_list.get(m).label.charAt(t)=='<')
                     {
-                        stemp=st0+"";
+                        stemp="\t";
                         st0=st0+"\"";
 
                     }
@@ -137,18 +137,14 @@ public class Main {
 
                         if(tag_list.get(m).is_json_Object && ! tag_list.get(m).is_Array_element )
                         {
+
                             st0=st0+"\":{";
                             line=m;
                             num=tag_list.get(m).margin;
                         }
                         else if(tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
                         {
-                            if(m+2<tag_list.size())
-                            {
-                                if (tag_list.get(m + 1).tag_type == "both tags" && ((tag_list.get(m + 2).tag_type == "closing tag") && (tag_list.get(m + 2).margin == tag_list.get(m).margin))) {
-                                    tag_list.get(m + 1).in_Array = true;
-                                }
-                            }
+
 
                             if(tag_list.get(m).is_1stArray_element)
                             {
@@ -167,13 +163,6 @@ public class Main {
                         }
                         else if(!tag_list.get(m).is_json_Object && tag_list.get(m).is_Array_element )
                         {
-                            if(m+2<tag_list.size())
-                            {
-                                if (tag_list.get(m + 1).tag_type == "both tags" && ((tag_list.get(m + 2).tag_type == "closing tag") && (tag_list.get(m + 2).margin == tag_list.get(m).margin))) {
-                                    tag_list.get(m + 1).in_Array = true;
-                                }
-                            }
-
 
                             if(tag_list.get(m).is_1stArray_element)
                             {
@@ -193,6 +182,7 @@ public class Main {
                     {
                         if(!(tag_list.get(m).is_Array_element && !tag_list.get(m).is_1stArray_element))
                         {
+                            stemp=stemp+"\t";
                             st0 = st0 + tag_list.get(m).label.charAt(t);
                         }
                         //else{st0 = st0 +"";}
@@ -253,10 +243,6 @@ public class Main {
             {
 
                 String st0="\t";
-                if(tag_list.get(m).in_Array)
-                {
-                    st0=st0+"{";
-                }
                 int count=0;
                 for(int t=0; t<tag_list.get(m).label.length();t++)
                 {
@@ -286,10 +272,6 @@ public class Main {
                     }
                 }
                 //System.out.println(st0);
-                if(tag_list.get(m).in_Array)
-                {
-                    st0=st0+"}";
-                }
                 b.add(st0+"\n");
             }
 
@@ -320,7 +302,7 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<String> s = new ArrayList<String>();
-        /*s.add( "<users>");
+        s.add( "<users>");
         s.add( "    <user>");
         s.add( "        <id>1</id>");
         s.add( "        <name>Ahmed Ali</name>");
@@ -358,9 +340,9 @@ public class Main {
         s.add( "            </follower>");
         s.add( "        </followers>");
         s.add( "    </user>");
-        s.add( "</users>");*/
+        s.add( "</users>");
 
-        s.add("<bookstore>");
+        /*s.add("<bookstore>");
         s.add("  <book >");
         s.add("    <title >Everyday Italian</title>");
         s.add("    <author>Giada De Laurentiis</author>");
@@ -379,10 +361,7 @@ public class Main {
         s.add("    <year>2003</year>");
         s.add("    <price>39.95</price>");
         s.add("  </book>");
-        s.add("</bookstore>");
-
-
-
+        s.add("</bookstore>");*/
 
         //File.checkConsistency(s);
         ArrayList<String> st = new ArrayList<String>();
