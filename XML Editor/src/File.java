@@ -75,7 +75,6 @@ public class File {
 									tags.pop();
 								}
 								else if(noClosingTagF == true) {
-									tags.pop();
 									noOpeningTagF = false;
 									while(!noClosingTags.isEmpty()) {
 										Tag noClosingTag = noClosingTags.remove();
@@ -84,6 +83,7 @@ public class File {
 										mistakes.add("No closing tag for <" + noClosingTag.label + "> in line " +  (noClosingTag.line+1));
 										tags.pop();
 									}
+									tags.pop();
 								}
 								else if(noOpeningTagF == true) {
 									String myLine = XML.get(lineIndex);
