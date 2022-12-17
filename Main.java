@@ -86,10 +86,10 @@ public class Main {
             tag_list.get(m).isArray(tag_list);
             tag_list.get(m).isObject(tag_list);
         }
-        for(int m=0;m< tag_list.size();m++)
+        /*for(int m=0;m< tag_list.size();m++)
         {
             System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
-        }
+        }*/
 
         System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
@@ -311,24 +311,24 @@ public class Main {
         s.add( "        <posts>");
         s.add( "            <post>");
         s.add( "                <body>");
-        s.add( "                    FooK");
+        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         s.add( "                </body>");
         s.add( "                <topics>");
         s.add( "                    <topic>");
-        s.add( "                        UNI...HARD!!");
+        s.add( "                        economy");
         s.add( "                    </topic>");
         s.add( "                    <topic>");
-        s.add( "                        LOL!");
+        s.add( "                        finance");
         s.add( "                    </topic>");
         s.add( "                </topics>");
         s.add( "            </post>");
         s.add( "            <post>");
         s.add( "                <body>");
-        s.add( "                    Oh...Noo!");
+        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         s.add( "                </body>");
         s.add( "                <topics>");
         s.add( "                    <topic>");
-        s.add( "                        UNI!..Stop :(");
+        s.add( "                        solar energy");
         s.add( "                    </topic>");
         s.add( "                </topics>");
         s.add( "            </post>");
@@ -342,40 +342,47 @@ public class Main {
         s.add( "            </follower>");
         s.add( "        </followers>");
         s.add( "    </user>");
+
         s.add( "    <user>");
-        s.add( "        <id>1</id>");
-        s.add( "        <name>Ahmed Ali</name>");
+        s.add( "        <id>2</id>");
+        s.add( "        <name>Yasser Ahmed</name>");
         s.add( "        <posts>");
         s.add( "            <post>");
         s.add( "                <body>");
-        s.add( "                    FooK");
+        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         s.add( "                </body>");
         s.add( "                <topics>");
         s.add( "                    <topic>");
-        s.add( "                        UNI...HARD!!");
-        s.add( "                    </topic>");
-        s.add( "                    <topic>");
-        s.add( "                        LOL!");
-        s.add( "                    </topic>");
-        s.add( "                </topics>");
-        s.add( "            </post>");
-        s.add( "            <post>");
-        s.add( "                <body>");
-        s.add( "                    Oh...Noo!");
-        s.add( "                </body>");
-        s.add( "                <topics>");
-        s.add( "                    <topic>");
-        s.add( "                        UNI!..Stop :(");
+        s.add( "                        education");
         s.add( "                    </topic>");
         s.add( "                </topics>");
         s.add( "            </post>");
         s.add( "        </posts>");
         s.add( "        <followers>");
         s.add( "            <follower>");
-        s.add( "                <id>2</id>");
+        s.add( "                <id>1</id>");
         s.add( "            </follower>");
+        s.add( "        </followers>");
+        s.add( "    </user>");
+
+        s.add( "    <user>");
+        s.add( "        <id>3</id>");
+        s.add( "        <name>Mohamed Sherif</name>");
+        s.add( "        <posts>");
+        s.add( "            <post>");
+        s.add( "                <body>");
+        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+        s.add( "                </body>");
+        s.add( "                <topics>");
+        s.add( "                    <topic>");
+        s.add( "                        sports");
+        s.add( "                    </topic>");
+        s.add( "                </topics>");
+        s.add( "            </post>");
+        s.add( "        </posts>");
+        s.add( "        <followers>");
         s.add( "            <follower>");
-        s.add( "                <id>3</id>");
+        s.add( "                <id>1</id>");
         s.add( "            </follower>");
         s.add( "        </followers>");
         s.add( "    </user>");
@@ -406,18 +413,18 @@ public class Main {
 
         ArrayList<String> st = new ArrayList<String>();
         ArrayList<String> b = new ArrayList<String>();
-        try {
+        /*try {
             File myObj = new File("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\data_structure\\out\\samplexml");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                b.add(data+"\n");
+                b.add(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        }
+        }*/
         st=Convert2JSON(s);
         //st=b;
         for (int i = 0; i < st.size(); i++) {
