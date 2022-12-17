@@ -1,7 +1,7 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.io.FileNotFoundException;
+import java.util.*;
+import java.io.File;
+import java.util.Scanner;
 
 public class Main {
 
@@ -86,12 +86,12 @@ public class Main {
             tag_list.get(m).isArray(tag_list);
             tag_list.get(m).isObject(tag_list);
         }
-        /*for(int m=0;m< tag_list.size();m++)
+        for(int m=0;m< tag_list.size();m++)
         {
-            System.out.println(tag_list.get(m).label+"      is object:? "+tag_list.get(m).is_json_Object);
-        }*/
+            System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
+        }
 
-        //System.out.println("**********************************************************************hiiiiiiii");
+        System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
         int line=0;
         boolean IS_Array=false;
@@ -299,10 +299,49 @@ public class Main {
         b.add("}\n");
         return b;
     }
+
+
     public static void main(String[] args) {
 
         ArrayList<String> s = new ArrayList<String>();
         s.add( "<users>");
+        s.add( "    <user>");
+        s.add( "        <id>1</id>");
+        s.add( "        <name>Ahmed Ali</name>");
+        s.add( "        <posts>");
+        s.add( "            <post>");
+        s.add( "                <body>");
+        s.add( "                    FooK");
+        s.add( "                </body>");
+        s.add( "                <topics>");
+        s.add( "                    <topic>");
+        s.add( "                        UNI...HARD!!");
+        s.add( "                    </topic>");
+        s.add( "                    <topic>");
+        s.add( "                        LOL!");
+        s.add( "                    </topic>");
+        s.add( "                </topics>");
+        s.add( "            </post>");
+        s.add( "            <post>");
+        s.add( "                <body>");
+        s.add( "                    Oh...Noo!");
+        s.add( "                </body>");
+        s.add( "                <topics>");
+        s.add( "                    <topic>");
+        s.add( "                        UNI!..Stop :(");
+        s.add( "                    </topic>");
+        s.add( "                </topics>");
+        s.add( "            </post>");
+        s.add( "        </posts>");
+        s.add( "        <followers>");
+        s.add( "            <follower>");
+        s.add( "                <id>2</id>");
+        s.add( "            </follower>");
+        s.add( "            <follower>");
+        s.add( "                <id>3</id>");
+        s.add( "            </follower>");
+        s.add( "        </followers>");
+        s.add( "    </user>");
         s.add( "    <user>");
         s.add( "        <id>1</id>");
         s.add( "        <name>Ahmed Ali</name>");
@@ -364,8 +403,23 @@ public class Main {
         s.add("</bookstore>");*/
 
         //File.checkConsistency(s);
+
         ArrayList<String> st = new ArrayList<String>();
+        ArrayList<String> b = new ArrayList<String>();
+        try {
+            File myObj = new File("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\data_structure\\out\\samplexml");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                b.add(data+"\n");
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         st=Convert2JSON(s);
+        //st=b;
         for (int i = 0; i < st.size(); i++) {
             System.out.print(st.get(i));
         }

@@ -8,7 +8,8 @@ public class Tag {
     int line;
     int margin;
     String tag_type;
-    boolean is_array ,is_json_Object, is_Array_element ,is_1stArray_element ;
+    boolean is_json_Object, is_Array_element ,is_1stArray_element ;
+    boolean  is_array;
     public Tag(String label, int line, int margin) {
         super();
         this.label = label;
@@ -32,56 +33,33 @@ public class Tag {
     boolean isArray(ArrayList<Tag> list)
     {
         Stack<Tag> temp_stack=new Stack<Tag>();
-        this.is_array=false;
-        int k=this.line;
-        int store_line=0;
-        int count=0;
-        int num=0;
+        //this.is_array=false;
+        //int k=this.line;
+        //int store_line=0;
+        //int count=0;
+        //int num=0;
         int i=0;
         int j=0;
-        boolean temp=false;
+        //boolean temp=false;
+        i=this.line;
 
-        for(i=0;i<list.size();i++)
-        {
-            if(list.get(i).label==this.label && list.get(i).line==this.line )
+            for (j = i + 2; j < list.size(); j++)
             {
-                break;
-            }
-        }
-
-        for(j=this.line+2;j<list.size();j++)
-        {
-
-
-            if(list.get(j).margin==list.get(i).margin && list.get(j).tag_type=="closing tag")
-            {
-                break;
-            }
-            if((list.get(i+1).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && (list.get(i+1).label==list.get(j).label))
-            {
-                temp=true;
-                is_array=true;
-                if(list.get(i+1).tag_type=="opening tag" && list.get(j).tag_type=="opening tag" )
+                if (list.get(j).margin == list.get(i).margin && list.get(j).tag_type == "closing tag")
                 {
+                    break;
+                }
+                if ( (list.get(i+1).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && list.get(i + 1).label == list.get(j).label )
+                {
+                    this.is_array = true;
                     list.get(i + 1).is_Array_element = true;
                     list.get(i + 1).is_1stArray_element = true;
                     list.get(j).is_Array_element = true;
+
                 }
-                //break;
             }
-
-
-        }
-
         return  is_array ;
     }
-
-    /*boolean isArrayElement(ArrayList<Tag> list)
-    {
-        is_Array_element=false;
-
-        return is_Array_element;
-    }*/
 
     boolean isObject(ArrayList<Tag> list)
     {
@@ -96,6 +74,7 @@ public class Tag {
                 break;
             }
         }
+
 
         for(j=i+1;j<list.size();j++)
         {
