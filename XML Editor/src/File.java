@@ -141,7 +141,11 @@ public class File {
 		return mistakes;
 
 	}
-
+	
+	
+	
+	
+	
 	public static ArrayList<String> prettify(ArrayList<String> badIndentsXML) {
 		ArrayList<String> noIndentsXML = new ArrayList<String>();
 		ArrayList<String> correctIndentsXML = new ArrayList<String>();
@@ -188,7 +192,11 @@ public class File {
 		}
 		return correctIndentsXML;
 	}
-
+	
+	
+	
+	
+	
 	public static ArrayList<String> Convert2JSON(ArrayList<String> a) {
 		Stack<Tag> tag_s = new Stack<Tag>();
 		Stack<Tag> temp_stack = new Stack<Tag>();
