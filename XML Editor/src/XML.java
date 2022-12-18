@@ -487,5 +487,27 @@ public class XML {
 			return false;
 		}
 	}
+	
+	
+	
+	
+	
+	public static ArrayList<String> Minify(ArrayList<String> XML){
+		
+		ArrayList<String> minified = new ArrayList<String>();
+		minified.add("");
+		
+		for (int lineIndex = 0; lineIndex < XML.size(); lineIndex++) {
+			for (int charIndex = 0; charIndex < XML.get(lineIndex).length(); charIndex++) {
+				if(XML.get(lineIndex).charAt(charIndex)=='\n' || XML.get(lineIndex).charAt(charIndex)==' ')
+				{
+					continue;
+				}
+				minified.set(0,minified.get(0) + XML.get(lineIndex).charAt(charIndex));
+			}
+			
+		}
+		return minified;
+	}
 
 }
