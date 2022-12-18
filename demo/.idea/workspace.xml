@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="372f2eb4-7014-4d91-a1b3-f55f95d7efad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ChooseFileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ChooseFileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/demo/Controllers/ChooseFileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/demo/MainPackage/XMLParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/demo/MainPackage/XMLParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/demo/MainPackage/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/demo/MainPackage/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/ChooseFileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/FileController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainPackage/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPackage/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainPackage/XMLParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPackage/XMLParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainPackage/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPackage/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +105,7 @@
       <workItem from="1671212186215" duration="23000" />
       <workItem from="1671263757423" duration="16000" />
       <workItem from="1671309687589" duration="881000" />
-      <workItem from="1671338894071" duration="2679000" />
+      <workItem from="1671338894071" duration="10369000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,11 @@
 package MainPackage;
 
-import Controllers.ChooseFileController;
+import Controllers.FileController;
 
 import java.util.ArrayList;
 
 public class XMLParser {
-    private static final String rowString = ChooseFileController.xmlText;
+    private static final String rowString = FileController.xmlText;
 
     public static ArrayList<String> Parse(){
         StringBuilder s = new StringBuilder("");
