@@ -20,6 +20,7 @@ public class ChooseFileController implements Initializable {
     @FXML
     private TextArea textArea;
 
+
     @FXML
     public void fileChooser(ActionEvent e){
         textArea.clear();
@@ -34,6 +35,7 @@ public class ChooseFileController implements Initializable {
         } catch (FileNotFoundException ex){
             ex.printStackTrace();
         }
+
     }
 
     @Override
