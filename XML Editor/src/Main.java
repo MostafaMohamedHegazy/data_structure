@@ -88,10 +88,5 @@ public class Main {
         s.add( "    </user>");
         s.add( "</users>");
     	
-        ArrayList<String> JSON = File.Convert2JSON(s);
-        
-        for (int i = 0; i < JSON.size(); i++) {
-            System.out.print(JSON.get(i));
-        }
     }
 }

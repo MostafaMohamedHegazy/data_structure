@@ -1,11 +1,16 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterOutputStream;
 
-public class File {
+public class XML {
 
-	public static ArrayList<String> correct(ArrayList<String> XML) {
+	public static ArrayList<String> Correct(ArrayList<String> XML) {
 		int lineIndex = 0;
 		String line;
 		Stack<Tag> tags = new Stack<Tag>();
@@ -146,7 +151,7 @@ public class File {
 	
 	
 	
-	public static ArrayList<String> prettify(ArrayList<String> badIndentsXML) {
+	public static ArrayList<String> Prettify(ArrayList<String> badIndentsXML) {
 		ArrayList<String> noIndentsXML = new ArrayList<String>();
 		ArrayList<String> correctIndentsXML = new ArrayList<String>();
 		String line = new String();
@@ -407,6 +412,80 @@ public class File {
 		}
 		b.add("}\n");
 		return b;
+	}
+	
+	
+	
+	
+	
+	public static boolean CompressFile(String file,String extension){
+        String filepath=file+extension;
+        String compFilepath=file+"compressed"+extension;
+        try{
+            FileInputStream fileRead=new FileInputStream(filepath);
+            FileOutputStream fileWrite=new FileOutputStream(compFilepath);
+
+            DeflaterOutputStream comp = new DeflaterOutputStream(fileWrite);
+            int data;
+            while ((data=fileRead.read())!=-1){
+                comp.write(data);
+            }
+            fileRead.close();
+            comp.close();
+            long originalSize=new File(filepath).length();
+            long compSize=new File(compFilepath).length();
+            System.out.println("original file size:"+originalSize+" and the new file size:"+compSize);
+            if (compSize<originalSize){
+                return true;
+            }
+            else{
+                File fileToDelete=new File(compFilepath);
+                fileToDelete.delete();
+                System.out.println("can't compress he file");
+                return false;
+            }
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
+	
+	
+	
+	
+	
+	public static boolean DecompressFile(String file, String extension) {
+		String filepath = file + extension;
+		String decompFilepath = file + "decompressed" + extension;
+		try {
+			FileInputStream fileRead = new FileInputStream(filepath);
+			FileOutputStream fileWrite = new FileOutputStream(decompFilepath);
+
+			InflaterOutputStream decomp = new InflaterOutputStream(fileWrite);
+			int data;
+			while ((data = fileRead.read()) != -1) {
+				decomp.write(data);
+			}
+			fileRead.close();
+			decomp.close();
+			long originalSize = new File(filepath).length();
+			long decompSize = new File(decompFilepath).length();
+			System.out.println("original file size:" + originalSize + " and the new file size:" + decompSize);
+			if (decompSize > originalSize) {
+				return true;
+			} else {
+				File fileToDelete = new File(decompFilepath);
+				fileToDelete.delete();
+				System.out.println("can't decompress he file");
+				return false;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
 	}
 
 }
