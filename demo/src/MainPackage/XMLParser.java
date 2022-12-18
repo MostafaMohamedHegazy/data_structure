@@ -14,11 +14,10 @@ public class XMLParser {
             if (rowString.charAt(i) != '\n')
                 s.append(rowString.charAt(i));
             else {
-                parsed.add(s.toString() + "\n");
+                parsed.add(s.toString());
                 s = new StringBuilder("");
             }
         }
-
         return parsed;
     }
 

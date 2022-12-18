@@ -50,8 +50,8 @@
             <RowConstraints maxHeight="30.0" minHeight="20.0" prefHeight="331.6000213623047" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextArea fx:id="textArea1" editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ffa100; -fx-border-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextArea fx:id="textArea2" editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ffa100; -fx-border-radius: 20;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextArea fx:id="inputText" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ffa100; -fx-border-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="outputText" editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ffa100; -fx-border-radius: 20;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label prefHeight="26.0" prefWidth="56.0" text="Output" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                <font>
                   <Font name="Centaur" size="20.0" />
@@ -114,11 +114,12 @@
          <children>
             <Button minWidth="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="To Json" GridPane.columnIndex="2" />
             <Button layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Prettify" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button layoutX="99.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Correct" GridPane.halignment="CENTER" />
+            <Button layoutX="99.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" onAction="#corrector" style="-fx-background-color: #ffa100;" text="Correct" GridPane.halignment="CENTER" />
             <Button minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Decompress" GridPane.columnIndex="4" />
             <Button minWidth="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #ffa100;" text="Compress" GridPane.columnIndex="3" />
             <Button minWidth="80.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Load" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button minWidth="80.0" mnemonicParsing="false" onAction="#fileSaver" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button minWidth="80.0" mnemonicParsing="false" onAction="#printer" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Printer" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" />

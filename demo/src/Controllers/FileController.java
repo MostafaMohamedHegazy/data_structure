@@ -1,5 +1,7 @@
 package Controllers;
 
+import MainPackage.XML;
+import MainPackage.XMLParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,43 +13,102 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class FileController implements Initializable {
     FileChooser f = new FileChooser();
+
     public static String xmlText;
+    
+    public ArrayList<String> ss;
 
     @FXML
-    private TextArea textArea1;
+    private TextArea inputText;
 
     @FXML
-    private TextArea textArea2;
+    private TextArea outputText;
 
     @FXML
     public void fileChooser(ActionEvent e){
-        textArea1.clear();
+        inputText.clear();
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
         File file = f.showOpenDialog(new Stage());
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine())
-                textArea1.appendText(scanner.nextLine()+"\n");
-            xmlText = textArea1.getText();
-            textArea2.setText(xmlText);
+                inputText.appendText(scanner.nextLine()+ "\n");
+
         } catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        }
+            inputText.setText("");
+        } catch (Exception exx){}
+        xmlText = inputText.getText();
+        ss = XMLParser.Parse();
     }
 
     @FXML
     public void fileSaver(ActionEvent e){
         File file = f.showSaveDialog(new Stage());
-        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("File", "*"));
+        f.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("File", "*"));
         if (file != null)
         {
-            saveSystem(file, textArea2.getText());
+            saveSystem(file, outputText.getText());
         }
+    }
+    
+    @FXML
+    public void corrector(ActionEvent e) {
+        outputText.clear();
+        if (ss.size() != 1){
+            ArrayList<String> a = XML.Correct(ss);
+            StringBuilder sb = new StringBuilder("");
+
+            for (String s : a)
+                sb.append(s + "\n");
+            outputText.setText(sb.toString());
+            outputText.appendText("------------------------------------------------------------\n");
+
+            StringBuilder sb2 = new StringBuilder("");
+            for (String s : ss)
+                sb2.append(s + "\n");
+            outputText.appendText(sb2.toString());
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ss.get(0).length(); i++) {
+                if (ss.get(0).charAt(i)!='<')
+                    sb.append(ss.get(0).charAt(i));
+                else {
+                    ss.add(sb.toString());
+                    sb.delete(0, sb.length());
+                    sb.append('<');
+                }
+            }
+            ss.remove(0);
+            ss.remove(0);
+            ArrayList<String> a = XML.Correct(ss);
+            a.remove(a.size() - 1);
+            sb.delete(0, sb.length());
+
+            for (String s : a)
+                sb.append(s + "\n");
+            outputText.setText(sb.toString());
+            outputText.appendText("------------------------------------------------------------\n");
+
+            StringBuilder sb2 = new StringBuilder("");
+            for (String s : ss)
+                sb2.append(s + "\n");
+            outputText.appendText(sb2.toString());
+        }
+    }
+
+    @FXML
+    public void printer(ActionEvent e) {
+        outputText.clear();
+        outputText.appendText("");
+        for (String s: ss)
+            outputText.appendText(s+"\n");
     }
 
     public void saveSystem(File file, String content){
@@ -60,6 +121,9 @@ public class FileController implements Initializable {
         }
 
     }
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
