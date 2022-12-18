@@ -3,9 +3,12 @@ package Controllers;
 import MainPackage.XML;
 import MainPackage.XMLParser;
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,6 +34,28 @@ public class FileController implements Initializable {
     private TextArea outputText;
 
     @FXML
+    private Button b1;
+
+    @FXML
+    private Button b2;
+
+    @FXML
+    private Button b3;
+
+    @FXML
+    private Button b4;
+
+    @FXML
+    private Button b5;
+
+    @FXML
+    private Button b6;
+
+    @FXML
+    private Button b7;
+
+
+    @FXML
     public void fileChooser(ActionEvent e){
         inputText.clear();
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -39,12 +64,14 @@ public class FileController implements Initializable {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine())
                 inputText.appendText(scanner.nextLine()+ "\n");
+            b6.setStyle("-fx-background-color: #dda100");
 
         } catch (FileNotFoundException ex){
             inputText.setText("");
         } catch (Exception exx){}
         xmlText = inputText.getText();
         ss = XMLParser.Parse();
+
     }
 
     @FXML
@@ -55,6 +82,7 @@ public class FileController implements Initializable {
         if (file != null)
         {
             saveSystem(file, outputText.getText());
+            b7.setStyle("-fx-background-color: #dda100");
         }
     }
     
@@ -101,6 +129,7 @@ public class FileController implements Initializable {
                 sb2.append(s + "\n");
             outputText.appendText(sb2.toString());
         }
+        b1.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -119,11 +148,18 @@ public class FileController implements Initializable {
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
     }
 
+    @FXML
+    void toJsonConverter(ActionEvent e) {
+        ArrayList<String> mostafa = XML.Convert2JSON(ss);
+        StringBuilder sb = new StringBuilder("");
 
-
+        for (String s : mostafa)
+            sb.append(s);
+        outputText.setText(sb.toString());
+        b3.setStyle("-fx-background-color: #dda100");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

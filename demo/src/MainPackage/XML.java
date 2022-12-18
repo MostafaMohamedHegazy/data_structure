@@ -150,9 +150,6 @@ public class XML {
     }
 
 
-
-
-
     public static ArrayList<String> Prettify(ArrayList<String> badIndentsXML) {
         ArrayList<String> noIndentsXML = new ArrayList<String>();
         ArrayList<String> correctIndentsXML = new ArrayList<String>();
