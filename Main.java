@@ -8,12 +8,10 @@ public class Main {
     static ArrayList<String>  Convert2JSON( ArrayList<String> a){
         Stack<Tag> tag_s = new Stack<Tag>();
         Stack<Tag> temp_stack= new Stack<Tag>();
-        Queue<Tag> tag_q = new LinkedList<Tag>() ;
-        //ArrayList<String> aux= new ArrayList<String>();
+        //Queue<Tag> tag_q = new LinkedList<Tag>() ;
         ArrayList<Tag> tag_list = new ArrayList<Tag>();
         ArrayList<Tag> openingtag_list = new ArrayList<Tag>();
         ArrayList<String> b = new ArrayList<String>();
-        //Queue<String> q = new LinkedList<String>() ;
         boolean openingtag=false , closingtag =false , bothtags=false;
         int j=1;
         int qcount=0;
@@ -29,7 +27,7 @@ public class Main {
                         //System.out.println("this is both tags line");
                         //System.out.println(""+(i-1)+" "+a.get((i-1)));
                         tag_list.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
-                        tag_q.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
+                        //tag_q.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
                         break;
 
                     }
@@ -62,7 +60,7 @@ public class Main {
                 openingtag=false;
                 bothtags =false ;
                 tag_list.add(new Tag(a.get((i-1)),(i-1),k-1,"closing tag"));
-                tag_q.add(new Tag(a.get((i-1)),(i-1),k-1,"closing tag"));
+                //tag_q.add(new Tag(a.get((i-1)),(i-1),k-1,"closing tag"));
                 //System.out.println("this is closing tag line");
                 //System.out.println(""+(i-1)+" "+a.get((i-1)));
             }
@@ -72,7 +70,7 @@ public class Main {
                 openingtag=false;
                 bothtags =false ;
                 tag_list.add(new Tag(a.get((i-1)),(i-1),0,"data"));
-                tag_q.add(new Tag(a.get((i-1)),(i-1),0,"data"));
+                //tag_q.add(new Tag(a.get((i-1)),(i-1),0,"data"));
                 //System.out.println("this is data line");
                 //System.out.println(""+(i-1)+" "+a.get((i-1)));
 
@@ -88,13 +86,26 @@ public class Main {
         }
         /*for(int m=0;m< tag_list.size();m++)
         {
-            System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
+            System.out.println(tag_list.get(m).label+"      margin:? "+tag_list.get(m).line);
         }*/
+
+        /*tag_list.get(0).is_array=true;
+        tag_list.get(1).is_Array_element=true;
+        tag_list.get(1).is_1stArray_element=true;
+        tag_list.get(7).is_Array_element=true;
+        tag_list.get(13).is_Array_element=true;*/
+
+        System.out.println("**********************************************************************hiiiiiiii");
+
+        for(int m=0;m< tag_list.size();m++)
+        {
+            System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
+        }
 
         System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
         int line=0;
-        boolean IS_Array=false;
+        //boolean IS_Array=false;
         String stemp="";
         //System.out.println("{");
         b.add("{\n");
@@ -389,19 +400,19 @@ public class Main {
         s.add( "</users>");
 
         /*s.add("<bookstore>");
-        s.add("  <book >");
+        s.add("  <book>");
         s.add("    <title >Everyday Italian</title>");
         s.add("    <author>Giada De Laurentiis</author>");
         s.add("    <year>2005</year>");
         s.add("    <price>30.00</price>");
         s.add("  </book>");
-        s.add("  <book >");
+        s.add("  <book>");
         s.add("    <title >Harry Potter</title>");
         s.add("    <author>J K. Rowling</author>");
         s.add("    <year>2005</year>");
         s.add("    <price>29.99</price>");
         s.add("  </book>");
-        s.add("  <book >");
+        s.add("  <book>");
         s.add("    <title >Learning XML</title>");
         s.add("    <author>Erik T. Ray</author>");
         s.add("    <year>2003</year>");
@@ -409,27 +420,19 @@ public class Main {
         s.add("  </book>");
         s.add("</bookstore>");*/
 
-        //File.checkConsistency(s);
-
         ArrayList<String> st = new ArrayList<String>();
         ArrayList<String> b = new ArrayList<String>();
-        /*try {
-            File myObj = new File("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\data_structure\\out\\samplexml");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                b.add(data);
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }*/
+        b=ReadFile.returna_array();
         st=Convert2JSON(s);
-        //st=b;
-        for (int i = 0; i < st.size(); i++) {
+
+        for (int i = 0; i < st.size(); i++)
+        {
             System.out.print(st.get(i));
         }
+
+        System.out.println(b);
+        System.out.println(s);
+
 
     }
 }

@@ -32,32 +32,38 @@ public class Tag {
 
     boolean isArray(ArrayList<Tag> list)
     {
-        Stack<Tag> temp_stack=new Stack<Tag>();
-        //this.is_array=false;
-        //int k=this.line;
-        //int store_line=0;
-        //int count=0;
-        //int num=0;
         int i=0;
         int j=0;
         //boolean temp=false;
         i=this.line;
+        int k,m;
+        for ( k = i + 1; k < list.size(); k++)
+        {
+            if ( list.get(k).tag_type=="opening tag")
+            {
+                break;
+            }
+        }
+        k=i+1;
 
-            for (j = i + 2; j < list.size(); j++)
+        //if ( k<list.size())
+        //{
+            for (j = k+1; j < list.size(); j++)
             {
                 if (list.get(j).margin == list.get(i).margin && list.get(j).tag_type == "closing tag")
                 {
                     break;
                 }
-                if ( (list.get(i+1).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && list.get(i + 1).label == list.get(j).label )
+                if ( (list.get(k).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && list.get(k).label == list.get(j).label )
                 {
                     this.is_array = true;
-                    list.get(i + 1).is_Array_element = true;
-                    list.get(i + 1).is_1stArray_element = true;
+                    list.get(k).is_Array_element = true;
+                    list.get(k).is_1stArray_element = true;
                     list.get(j).is_Array_element = true;
 
                 }
             }
+        //}
         return  is_array ;
     }
 
