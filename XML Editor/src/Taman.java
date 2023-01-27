@@ -5,46 +5,6 @@ public class Taman {
 	public static ArrayList<String> prettify(ArrayList<String> generalXML) {
 		ArrayList<String> correctIndentsXML = new ArrayList<String>();
 		
-		generalXML.add( "<users>");
-		generalXML.add( "    <user>");
-		generalXML.add( "        <id>1</id>");
-		generalXML.add( "        <name>Ahmed Ali</name>");
-		generalXML.add( "        <posts>");
-		generalXML.add( "            <post>");
-		generalXML.add( "                <body>");
-		generalXML.add( "                    FooK");
-		generalXML.add( "                </body>");
-		generalXML.add( "                <topics>");
-		generalXML.add( "                    <topic>");
-		generalXML.add( "                        UNI...HARD!!");
-		generalXML.add( "                    </topic>");
-		generalXML.add( "                    <topic>");
-		generalXML.add( "                        LOL!");
-		generalXML.add( "                    </topic>");
-		generalXML.add( "                </topics>");
-		generalXML.add( "            </post>");
-		generalXML.add( "            <post>");
-		generalXML.add( "                <body>");
-		generalXML.add( "                    Oh...Noo!");
-		generalXML.add( "                </body>");
-		generalXML.add( "                <topics>");
-		generalXML.add( "                    <topic>");
-		generalXML.add( "                        UNI!..Stop :(");
-		generalXML.add( "                    </topic>");
-		generalXML.add( "                </topics>");
-		generalXML.add( "            </post>");
-		generalXML.add( "        </posts>");
-		generalXML.add( "        <followers>");
-		generalXML.add( "            <follower>");
-		generalXML.add( "                <id>2</id>");
-		generalXML.add( "            </follower>");
-		generalXML.add( "            <follower>");
-		generalXML.add( "                <id>3</id>");
-		generalXML.add( "            </follower>");
-		generalXML.add( "        </followers>");
-		generalXML.add( "    </user>");
-		generalXML.add( "</users>");
-		
 		String line = new String();
 		int indentsCounter;
 		
