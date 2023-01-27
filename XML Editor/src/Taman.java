@@ -49,10 +49,10 @@ public class Taman {
 
 
 		}
-		System.out.println('\n'+"Elements of correctIndentsXML are:"+'\n');
+		/*System.out.println('\n'+"Elements of correctIndentsXML are:"+'\n');
 		for (int lineIndex = 0; lineIndex < correctIndentsXML.size(); lineIndex++) {
 			System.out.println(correctIndentsXML.get(lineIndex));
-		}
+		}*/
 		return correctIndentsXML;
 	}
 
