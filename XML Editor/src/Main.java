@@ -43,7 +43,7 @@ public class Main {
         s.add( "</followers>");
         s.add( "</user>");
         s.add( "</users>");
-    	 System.out.println(File.correct(s));
+    	System.out.println(File.correct(s));
     	for (int i = 0; i < s.size(); i++) {
 			System.out.println(s.get(i));
 		}
