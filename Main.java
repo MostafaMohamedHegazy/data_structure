@@ -271,27 +271,24 @@ public class Main {
                 b.add(st0+"\n");
             }
 
-            if(tag_list.get(m).tag_type=="data")
-            {
-                String st0="\t";
-                int count=0;
-                for(int t=0; t<tag_list.get(m).label.length();t++)
-                {
-                    if(tag_list.get(m).label.charAt(t) !=' ')
-                    {
+            if(tag_list.get(m).tag_type=="data") {
+                    String st0 = "\t";
+                int count = 0;
+                for (int t = 0; t < tag_list.get(m).label.length(); t++) {
+                    if (tag_list.get(m).label.charAt(t) >= '!') {
                         count++;
-                        if(count<=1){ st0=st0+"\""; }
+                        if (count <= 1) {
+                            st0 = st0 + "\"";
+                        }
                     }
-                    st0=st0+tag_list.get(m).label.charAt(t);
+                    st0 = st0 + tag_list.get(m).label.charAt(t);
 
                 }
-                st0=st0+"\"";
+                st0 = st0 + "\"";
                 //System.out.println(st0);
-                b.add(st0+"\n");
+                b.add(st0 + "\n");
             }
-
-        }
-        //System.out.println("}");
+            }
         b.add("}\n");
         return b;
     }
@@ -409,15 +406,15 @@ public class Main {
         ArrayList<String> b = new ArrayList<>();
 
         b=ReadFile.returna_array();
-        st=Convert2JSON(s);
+        st=Convert2JSON(b);
 
         for (int i = 0; i < st.size(); i++)
         {
             System.out.print(st.get(i));
         }
 
-        System.out.println(b);
-        System.out.println(s);
+        //System.out.println(b);
+        //System.out.println(s);
 
 
     }
