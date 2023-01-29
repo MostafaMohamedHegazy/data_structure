@@ -30,41 +30,40 @@ public class Tag {
         in_Array=false;
     }
 
-    boolean isArray(ArrayList<Tag> list)
+    void isArray(ArrayList<Tag> list)
     {
+        //System.out.println("**********************************************************************hiiiiiiii");
         int i=0;
         int j=0;
-        //boolean temp=false;
         i=this.line;
         int k,m;
-        for ( k = i + 1; k < list.size(); k++)
+        if((list.get(i).tag_type=="opening tag" ))
         {
-            if ( list.get(k).tag_type=="opening tag")
-            {
-                break;
-            }
-        }
-        k=i+1;
 
-        //if ( k<list.size())
-        //{
+            k=i+1;
+
             for (j = k+1; j < list.size(); j++)
             {
                 if (list.get(j).margin == list.get(i).margin && list.get(j).tag_type == "closing tag")
                 {
+                    //System.out.println("break is array at: "+list.get(j).label);
                     break;
                 }
-                if ( (list.get(k).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && list.get(k).label == list.get(j).label )
+                if ( (list.get(k).tag_type.equals("opening tag") && list.get(j).tag_type.equals("opening tag")) && list.get(k).label.equals(list.get(j).label) )
                 {
                     this.is_array = true;
                     list.get(k).is_Array_element = true;
                     list.get(k).is_1stArray_element = true;
                     list.get(j).is_Array_element = true;
+                    //System.out.println(" list.get(k).is_Array_element = true at: "+list.get(k).label);
+                    //System.out.println(" list.get(k).is_1stArray_element = true at: "+list.get(k).label);
+                    //System.out.println("true is array at: "+list.get(j).label);
 
                 }
             }
-        //}
-        return  is_array ;
+
+         }
+
     }
 
     boolean isObject(ArrayList<Tag> list)

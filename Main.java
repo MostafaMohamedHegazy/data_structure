@@ -1,17 +1,13 @@
-import java.io.FileNotFoundException;
 import java.util.*;
-import java.io.File;
-import java.util.Scanner;
 
 public class Main {
 
     static ArrayList<String>  Convert2JSON( ArrayList<String> a){
-        Stack<Tag> tag_s = new Stack<Tag>();
-        Stack<Tag> temp_stack= new Stack<Tag>();
-        //Queue<Tag> tag_q = new LinkedList<Tag>() ;
-        ArrayList<Tag> tag_list = new ArrayList<Tag>();
-        ArrayList<Tag> openingtag_list = new ArrayList<Tag>();
-        ArrayList<String> b = new ArrayList<String>();
+        Stack<Tag> tag_s = new Stack<>();
+        Stack<Tag> temp_stack= new Stack<>();
+        ArrayList<Tag> tag_list = new ArrayList<>();
+        ArrayList<Tag> openingtag_list = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
         boolean openingtag=false , closingtag =false , bothtags=false;
         int j=1;
         int qcount=0;
@@ -27,7 +23,6 @@ public class Main {
                         //System.out.println("this is both tags line");
                         //System.out.println(""+(i-1)+" "+a.get((i-1)));
                         tag_list.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
-                        //tag_q.add(new Tag(a.get(i-1),(i-1),j-1,"both tags"));
                         break;
 
                     }
@@ -89,34 +84,24 @@ public class Main {
             System.out.println(tag_list.get(m).label+"      margin:? "+tag_list.get(m).line);
         }*/
 
-        /*tag_list.get(0).is_array=true;
-        tag_list.get(1).is_Array_element=true;
-        tag_list.get(1).is_1stArray_element=true;
-        tag_list.get(7).is_Array_element=true;
-        tag_list.get(13).is_Array_element=true;*/
+        //System.out.println("**********************************************************************hiiiiiiii");
 
-        System.out.println("**********************************************************************hiiiiiiii");
-
-        for(int m=0;m< tag_list.size();m++)
+        /*for(int m=0;m< tag_list.size();m++)
         {
             System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
-        }
+        }*/
 
-        System.out.println("**********************************************************************hiiiiiiii");
+        //System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
         int line=0;
-        //boolean IS_Array=false;
         String stemp="";
-        //System.out.println("{");
         b.add("{\n");
         Tag T;
         String compare_margins="";
         int arr_element_count=0;
-
         for(int m=0;m< tag_list.size();m++)
         {
-
-            if(tag_list.get(m).tag_type=="opening tag")
+            if(tag_list.get(m).tag_type == "opening tag")
             {
 
                 if(!tag_s.isEmpty())
@@ -314,7 +299,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<String> s = new ArrayList<String>();
+        ArrayList<String> s = new ArrayList<>();
         s.add( "<users>");
         s.add( "    <user>");
         s.add( "        <id>1</id>");
@@ -420,8 +405,9 @@ public class Main {
         s.add("  </book>");
         s.add("</bookstore>");*/
 
-        ArrayList<String> st = new ArrayList<String>();
-        ArrayList<String> b = new ArrayList<String>();
+        ArrayList<String> st = new ArrayList<>();
+        ArrayList<String> b = new ArrayList<>();
+
         b=ReadFile.returna_array();
         st=Convert2JSON(s);
 
