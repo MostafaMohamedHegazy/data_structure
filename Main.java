@@ -5,6 +5,7 @@ public class Main {
     static ArrayList<String>  Convert2JSON( ArrayList<String> a){
         Stack<Tag> tag_s = new Stack<>();
         Stack<Tag> temp_stack= new Stack<>();
+        //Stack<Tag> is_arr_opentag= new Stack<>();
         ArrayList<Tag> tag_list = new ArrayList<>();
         ArrayList<Tag> openingtag_list = new ArrayList<>();
         ArrayList<String> b = new ArrayList<>();
@@ -74,10 +75,16 @@ public class Main {
         }
         for(int m=0;m< tag_list.size();m++)
         {
+
+                tag_list.get(m).get_name();
+
+        }
+        for(int m=0;m< tag_list.size();m++)
+        {
             //System.out.println(tag_list.get(m).label+" is array: ? "+tag_list.get(m).isArray(tag_list));
             //System.out.println(tag_list.get(m).label+" is object: ? "+tag_list.get(m).isObject(tag_list));
             tag_list.get(m).isArray(tag_list);
-            tag_list.get(m).isObject(tag_list);
+            tag_list.get(m).isObject(tag_list, m);
         }
         /*for(int m=0;m< tag_list.size();m++)
         {
@@ -86,10 +93,12 @@ public class Main {
 
         //System.out.println("**********************************************************************hiiiiiiii");
 
-        /*for(int m=0;m< tag_list.size();m++)
+        for(int m=0;m< tag_list.size();m++)
         {
-            System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
-        }*/
+           // System.out.println(tag_list.get(m).label+"      is array:? "+tag_list.get(m).is_array);
+            //System.out.println(tag_list.get(m).label+"      is  array elem:? "+tag_list.get(m).is_Array_element);
+            //System.out.println(tag_list.get(m).name+"      "+tag_list.get(m).tag_type);
+        }
 
         //System.out.println("**********************************************************************hiiiiiiii");
         int num=0;
@@ -103,19 +112,6 @@ public class Main {
         {
             if(tag_list.get(m).tag_type == "opening tag")
             {
-
-                if(!tag_s.isEmpty())
-                {
-                    if (tag_s.peek().margin > tag_list.get(m).margin) {
-                        compare_margins = "lower";
-                    }
-                    if (tag_s.peek().margin < tag_list.get(m).margin) {
-                        compare_margins = "higher";
-                    }
-                    if (tag_s.peek().margin == tag_list.get(m).margin) {
-                        compare_margins = "equal";
-                    }
-                }
                 temp_stack.push(tag_list.get(m));
                 T=tag_list.get(m);
                 tag_s.push(tag_list.get(m))  ;
@@ -222,14 +218,14 @@ public class Main {
 
                         if(m<tag_list.size()-1)
                         {
-                            if (compare_margins == "equal" || tag_list.get(m + 1).margin==aux_tag.margin)
+                            if (!tag_list.get(m + 1).tag_type.equals("closing tag"))
                             {
                                 st0 = st0 + ",";
                             }
                         }
                         break;
                     }
-                    st0=st0+" ";
+                    st0=st0 + " ";
                 }
                 //System.out.println(st0);
                 b.add(st0+"\n");
@@ -250,7 +246,7 @@ public class Main {
                         else
                         {
                             st0=st0+"\"";
-                            if (compare_margins == "equal" || tag_list.get(m + 1).margin==tag_list.get(m).margin) {
+                            if (!tag_list.get(m + 1).tag_type.equals("closing tag")) {
                                 st0 = st0 + ",";
                             }
                             break;
@@ -290,7 +286,10 @@ public class Main {
             }
             }
         b.add("}\n");
+        //System.out.println(tag_list.get(4).name  + " type : " + tag_list.get(4).tag_type );
         return b;
+
+
     }
 
 
