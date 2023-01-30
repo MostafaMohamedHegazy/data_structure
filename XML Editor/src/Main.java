@@ -88,7 +88,7 @@ public class Main {
         s.add( "</users>");
 
 		for (int i = 0; i < User.fromXML(s).size(); i++) {
-			System.out.println(User.fromXML(s).get(i).posts);
+			System.out.println(User.fromXML(s).get(i).followers);
 		}
 
     }

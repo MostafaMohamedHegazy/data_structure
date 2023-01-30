@@ -16,7 +16,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [ID=" + ID + ", name=" + name;
+		return "User [ID=" + ID + ", name=" + name + "]";
 	}
 
 	public static ArrayList<User> fromXML(ArrayList<String> XML){
