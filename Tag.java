@@ -85,43 +85,6 @@ public class Tag {
             }
 
          }
-        /******************************************************
-        int i=0;
-        int j=0;
-        i=this.line;
-        int k,m;
-        if((list.get(i).tag_type=="opening tag" ))
-        {
-
-            k=i+1;
-
-            //System.out.println("k label : "+list.get(k).label);
-            //System.out.println("k name : "+list.get(k).label);
-
-            for (j = k+1; j < list.size(); j++)
-            {
-                //System.out.println("j label : "+list.get(j).label);
-                //System.out.println("j name : "+list.get(j).name);
-                if (list.get(j).name.equals(list.get(i).name)  && list.get(j).tag_type == "closing tag")
-                {
-                    //System.out.println("break is array at: "+list.get(j).label);
-                    break;
-                }
-                if ( (list.get(k).tag_type.equals("opening tag") && list.get(j).tag_type.equals("opening tag")) && list.get(k).label.equals(list.get(j).label) )
-                {
-                    this.is_array = true;
-                    list.get(k).is_Array_element = true;
-                    list.get(k).is_1stArray_element = true;
-                    list.get(j).is_Array_element = true;
-                    //System.out.println(" list.get(k).is_Array_element = true at: "+list.get(k).label);
-                    //System.out.println(" list.get(k).is_1stArray_element = true at: "+list.get(k).label);
-                    //System.out.println("true is array at: "+list.get(j).label);
-
-                }
-            }
-
-        }*/
-
     }
 
     boolean isObject(ArrayList<Tag> list , int i)
@@ -175,11 +138,6 @@ public class Tag {
                     else{ break; }
                 }
             }
-
-
-        }
-        else
-        {
 
         }
         this.name=name;

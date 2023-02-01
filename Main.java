@@ -292,114 +292,8 @@ public class Main {
 
     }
 
-
-    public static void main(String[] args) {
-
-        ArrayList<String> s = new ArrayList<>();
-        s.add( "<users>");
-        s.add( "    <user>");
-        s.add( "        <id>1</id>");
-        s.add( "        <name>Ahmed Ali</name>");
-        s.add( "        <posts>");
-        s.add( "            <post>");
-        s.add( "                <body>");
-        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-        s.add( "                </body>");
-        s.add( "                <topics>");
-        s.add( "                    <topic>");
-        s.add( "                        economy");
-        s.add( "                    </topic>");
-        s.add( "                    <topic>");
-        s.add( "                        finance");
-        s.add( "                    </topic>");
-        s.add( "                </topics>");
-        s.add( "            </post>");
-        s.add( "            <post>");
-        s.add( "                <body>");
-        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-        s.add( "                </body>");
-        s.add( "                <topics>");
-        s.add( "                    <topic>");
-        s.add( "                        solar energy");
-        s.add( "                    </topic>");
-        s.add( "                </topics>");
-        s.add( "            </post>");
-        s.add( "        </posts>");
-        s.add( "        <followers>");
-        s.add( "            <follower>");
-        s.add( "                <id>2</id>");
-        s.add( "            </follower>");
-        s.add( "            <follower>");
-        s.add( "                <id>3</id>");
-        s.add( "            </follower>");
-        s.add( "        </followers>");
-        s.add( "    </user>");
-
-        s.add( "    <user>");
-        s.add( "        <id>2</id>");
-        s.add( "        <name>Yasser Ahmed</name>");
-        s.add( "        <posts>");
-        s.add( "            <post>");
-        s.add( "                <body>");
-        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-        s.add( "                </body>");
-        s.add( "                <topics>");
-        s.add( "                    <topic>");
-        s.add( "                        education");
-        s.add( "                    </topic>");
-        s.add( "                </topics>");
-        s.add( "            </post>");
-        s.add( "        </posts>");
-        s.add( "        <followers>");
-        s.add( "            <follower>");
-        s.add( "                <id>1</id>");
-        s.add( "            </follower>");
-        s.add( "        </followers>");
-        s.add( "    </user>");
-
-        s.add( "    <user>");
-        s.add( "        <id>3</id>");
-        s.add( "        <name>Mohamed Sherif</name>");
-        s.add( "        <posts>");
-        s.add( "            <post>");
-        s.add( "                <body>");
-        s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-        s.add( "                </body>");
-        s.add( "                <topics>");
-        s.add( "                    <topic>");
-        s.add( "                        sports");
-        s.add( "                    </topic>");
-        s.add( "                </topics>");
-        s.add( "            </post>");
-        s.add( "        </posts>");
-        s.add( "        <followers>");
-        s.add( "            <follower>");
-        s.add( "                <id>1</id>");
-        s.add( "            </follower>");
-        s.add( "        </followers>");
-        s.add( "    </user>");
-        s.add( "</users>");
-
-        /*s.add("<bookstore>");
-        s.add("  <book>");
-        s.add("    <title >Everyday Italian</title>");
-        s.add("    <author>Giada De Laurentiis</author>");
-        s.add("    <year>2005</year>");
-        s.add("    <price>30.00</price>");
-        s.add("  </book>");
-        s.add("  <book>");
-        s.add("    <title >Harry Potter</title>");
-        s.add("    <author>J K. Rowling</author>");
-        s.add("    <year>2005</year>");
-        s.add("    <price>29.99</price>");
-        s.add("  </book>");
-        s.add("  <book>");
-        s.add("    <title >Learning XML</title>");
-        s.add("    <author>Erik T. Ray</author>");
-        s.add("    <year>2003</year>");
-        s.add("    <price>39.95</price>");
-        s.add("  </book>");
-        s.add("</bookstore>");*/
+    public static void main(String[] args)
+    {
 
         ArrayList<String> st = new ArrayList<>();
         ArrayList<String> b = new ArrayList<>();
@@ -411,11 +305,8 @@ public class Main {
         {
             System.out.print(st.get(i));
         }
-
         //System.out.println(b);
         //System.out.println(s);
-
-
     }
 }
 
