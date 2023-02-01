@@ -14,6 +14,15 @@
                     <topic>
                         finance
                     </topic>
+                    <topic>
+                        economy
+                    </topic>
+                    <topic>
+                          economy
+                    </topic>
+                    <topic>
+                          economy
+                    </topic>
                 </topics>
             </post>
             <post>
@@ -76,6 +85,9 @@
             <follower>
                 <id>1</id>
             </follower>
+            <follower>
+                <id>4</id>
+            </follower>
         </followers>
     </user>
     <user>
@@ -99,46 +111,5 @@
                 </follower>
             </followers>
     </user>
-    <user>
-                <id>5</id>
-                <name> mostafa </name>
-                <posts>
-                    <post>
-                        <body>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </body>
-                        <topics>
-                            <topic>
-                                sports
-                            </topic>
-                        </topics>
-                    </post>
-                </posts>
-                <followers>
-                    <follower>
-                        <id>3</id>
-                    </follower>
-                </followers>
-    </user>
-    <user>
-                <id>6</id>
-                <name> osama</name>
-                <posts>
-                    <post>
-                        <body>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </body>
-                        <topics>
-                            <topic>
-                                sports
-                            </topic>
-                        </topics>
-                    </post>
-                </posts>
-                <followers>
-                    <follower>
-                        <id>3</id>
-                    </follower>
-                </followers>
-    </user>
+
 </users>

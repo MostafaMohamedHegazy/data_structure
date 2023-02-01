@@ -163,7 +163,7 @@ public class User {
             System.out.println(v=user_stack.pop());
             if(!visited[v.ID-1])
             {
-                s= (ArrayList<User>) g.verticesMap.get(v);
+                s= (ArrayList<User>) g.verticesMap.get(v) ;
                 /*System.out.println(s);
                 System.out.println(s.get(0));
                 System.out.println(s.get(1));*/
@@ -181,6 +181,11 @@ public class User {
         while(!user_stack.isEmpty());
         //g.verticesMap.keySet() ;
     }
+    public int in_degree(Graph g,User v)
+    {
+        g.validateVertex(v);
+        return v.followers.size();
+    }
     public static void main(String[] args)
     {
 
@@ -197,8 +202,8 @@ public class User {
             //System.out.println(user_ojects.get(i).toString());
             //System.out.println(b);
         }
-        for(int m=0 ; m<user_ojects.size();m++)
-        {
+        //for(int m=0 ; m<user_ojects.size();m++)
+        //{
             for(int i=0 ; i<user_ojects.size();i++)
             {
                 temp_followers=user_ojects.get(i).followers;
@@ -208,27 +213,26 @@ public class User {
                 {
                     //System.out.println("user_ojects.get(i)      "+user_ojects.get(i).ID);
                     //System.out.println("temp_followers.get(j)   "+temp_followers.get(j).ID);
-                    if(temp_followers.get(j).ID==user_ojects.get(m).ID)
-                    {
+
                         graph.addEdge(user_ojects.get(i),temp_followers.get(j));
-                    }
+
                 }
                 //System.out.println(user_ojects.get(i).toString());
                 //System.out.println(b);
             }
-        }
+        //}
         //graph.addEdge(user_ojects.get(2),user_ojects.get(0));
         //System.out.println(user_ojects.get(2).toString());
-        System.out.println("******************graph vertices*******************\n");
-        System.out.println(graph.verticesMap.keySet());
-        System.out.println("******************adjacency list of 1st vertex  graph*******************\n");
-        System.out.println(graph.verticesMap.get(user_ojects.get(0)));
+       // System.out.println("******************graph vertices*******************\n");
+       // System.out.println(graph.verticesMap.keySet());
+       // System.out.println("******************adjacency list of 1st vertex  graph*******************\n");
+       // System.out.println(graph.verticesMap.get(user_ojects.get(0)));
         System.out.println("******************graph*******************\n");
         System.out.println(graph);
         System.out.println("******************graph*******************\n");
         System.out.println("Vertices: " + graph.getNumVertices());
         System.out.println("Edges: " + graph.getNumEdges());
-        System.out.println(user_ojects.get(3)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(3)));
+       System.out.println(user_ojects.get(3)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(3)));
         System.out.println("******************DFS  graph*******************\n");
         DFS(graph,user_ojects.get(0));
 

@@ -19,11 +19,12 @@ public class Graph<User> implements Iterable<User> {
     }
 
 
-    private void validateVertex(User v) {
+    public void validateVertex(User v) {
         if (!hasVertex(v)) throw new IllegalArgumentException(v.toString() + " is not a vertex");
     }
 
-    public int out_degree(User v) {
+    public int out_degree(User v)
+    {
         validateVertex(v);
         return verticesMap.get(v).size();
     }
