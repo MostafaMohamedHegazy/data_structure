@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="372f2eb4-7014-4d91-a1b3-f55f95d7efad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/demo/MainPackage/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/demo/MainPackage/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/demo/Controllers/FileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/demo/Controllers/FileController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPackage/XML.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPackage/XML.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainPackage/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainPackage/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gamed" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mostafa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sample.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sample.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +104,12 @@
       <workItem from="1671263757423" duration="16000" />
       <workItem from="1671309687589" duration="881000" />
       <workItem from="1671338894071" duration="10369000" />
-      <workItem from="1671386994211" duration="9240000" />
+      <workItem from="1671386994211" duration="11290000" />
+      <workItem from="1671650320352" duration="116000" />
+      <workItem from="1672808038828" duration="106000" />
+      <workItem from="1672853506180" duration="47000" />
+      <workItem from="1674996793987" duration="5000" />
+      <workItem from="1674996841293" duration="8000" />
     </task>
     <servers />
   </component>
@@ -120,6 +126,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Controllers/FileController.java</url>
+          <line>158</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

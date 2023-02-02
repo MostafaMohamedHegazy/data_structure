@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -85,7 +84,17 @@ public class FileController implements Initializable {
             b7.setStyle("-fx-background-color: #dda100");
         }
     }
-    
+
+    public void saveSystem(File file, String content){
+        try {
+            PrintWriter printWriter = new PrintWriter(file);
+            printWriter.write(content);
+            printWriter.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void corrector(ActionEvent e) {
         outputText.clear();
@@ -140,16 +149,6 @@ public class FileController implements Initializable {
             outputText.appendText(s+"\n");
     }
 
-    public void saveSystem(File file, String content){
-        try {
-            PrintWriter printWriter = new PrintWriter(file);
-            printWriter.write(content);
-            printWriter.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     void toJsonConverter(ActionEvent e) {
         ArrayList<String> mostafa = XML.Convert2JSON(ss);
@@ -160,6 +159,25 @@ public class FileController implements Initializable {
         outputText.setText(sb.toString());
         b3.setStyle("-fx-background-color: #dda100");
     }
+
+    @FXML
+    void prettify(ActionEvent e) {
+        ArrayList<String> omar = XML.Prettify(ss);
+        StringBuilder sb = new StringBuilder();
+        for (String s : omar)
+            sb.append(s + "\n");
+        outputText.setText(sb.toString());
+        b3.setStyle("-fx-background-color: #dda100");
+    }
+
+    @FXML
+    void minify(ActionEvent e) {
+        ArrayList<String> ahmed = XML.Minify(ss);
+        StringBuilder sb = new StringBuilder(ahmed.get(0));
+        outputText.setText(sb.toString());
+        b3.setStyle("-fx-background-color: #dda100");
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

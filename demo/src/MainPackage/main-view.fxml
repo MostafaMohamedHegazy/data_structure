@@ -113,13 +113,14 @@
          </rowConstraints>
          <children>
             <Button fx:id="b3" minWidth="80.0" mnemonicParsing="false" onAction="#toJsonConverter" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="To Json" GridPane.columnIndex="2" />
-            <Button fx:id="b2" layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Prettify" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="b2" layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" onAction="#prettify" style="-fx-background-color: #ffa100;" text="Prettify" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button fx:id="b1" layoutX="99.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" onAction="#corrector" style="-fx-background-color: #ffa100;" text="Correct" GridPane.halignment="CENTER" />
             <Button fx:id="b5" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Decompress" GridPane.columnIndex="4" />
             <Button fx:id="b4" minWidth="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #ffa100;" text="Compress" GridPane.columnIndex="3" />
-            <Button fx:id="b6" minWidth="80.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Load" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="b7" minWidth="80.0" mnemonicParsing="false" onAction="#fileSaver" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button minWidth="80.0" mnemonicParsing="false" onAction="#printer" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Printer" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="b6" minWidth="80.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Load" GridPane.rowIndex="2" />
+            <Button fx:id="b7" minWidth="80.0" mnemonicParsing="false" onAction="#fileSaver" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Save" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Button minWidth="80.0" mnemonicParsing="false" onAction="#printer" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Printer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button minWidth="80.0" mnemonicParsing="false" onAction="#minify" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Minify" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" />

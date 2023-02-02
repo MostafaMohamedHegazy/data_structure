@@ -1,4 +1,5 @@
 package MainPackage;
+
 import java.util.ArrayList;
 
 public class Tag {
@@ -6,17 +7,15 @@ public class Tag {
     boolean in_Array;
     int line;
     int margin;
-    String tag_type;
+    String tag_type , name;
     boolean is_json_Object, is_Array_element ,is_1stArray_element ;
     boolean  is_array;
-
     public Tag(String label, int line, int margin) {
         super();
         this.label = label;
         this.line = line;
         this.margin = margin;
     }
-
     public Tag(String label, int line, int margin, String st) {
         //super();
         if(st=="both tags" || st=="opening tag" || st=="closing tag" || st=="data"){this.tag_type=st;}
@@ -31,53 +30,76 @@ public class Tag {
         in_Array=false;
     }
 
-    boolean isArray(ArrayList<Tag> list)
+    void isArray(ArrayList<Tag> list)
     {
+        //System.out.println("**********************************************************************hiiiiiiii");
         int i=0;
         int j=0;
         i=this.line;
+        int k,m;
 
-        for (j = i + 2; j < list.size(); j++)
+        if((list.get(i).tag_type.equals("opening tag" )))
         {
-            if (list.get(j).margin == list.get(i).margin && list.get(j).tag_type == "closing tag")
+            k=i+1;
+            //System.out.println("k-1 label : "+list.get(k-1).label);
+            //System.out.println("k label : "+list.get(k).label);
+            //System.out.println("k name : "+list.get(k).name+" type: "+list.get(k).tag_type);
+            for (j = k+1; j < list.size(); j++)
             {
-                break;
+                //System.out.println("j label : "+list.get(j).label);
+                //System.out.println("j name : "+list.get(j).name);
+                if (list.get(j).name.equals(list.get(k).name) && list.get(j).tag_type.equals("closing tag")) {
+                    //System.out.println("break is array at: "+list.get(j).label);
+                    break;
+                }
             }
-            if ( (list.get(i+1).tag_type=="opening tag" && list.get(j).tag_type=="opening tag") && list.get(i + 1).label == list.get(j).label )
+            if(j<list.size()-1)
             {
-                this.is_array = true;
-                list.get(i + 1).is_Array_element = true;
-                list.get(i + 1).is_1stArray_element = true;
-                list.get(j).is_Array_element = true;
+                if ((list.get(k).tag_type.equals("opening tag") && list.get(j + 1).tag_type.equals("opening tag")) && list.get(k).name.equals(list.get(j + 1).name))
+                {
 
+                    this.is_array = true;
+                    list.get(k).is_Array_element = true;
+                    list.get(k).is_1stArray_element = true;
+                    //list.get(j+1).is_Array_element = true;
+                    //System.out.println(" list.get(k).is_Array_element = true at: "+list.get(k).label);
+                    //System.out.println(" list.get(k).is_1stArray_element = true at: "+list.get(k).label);
+                    //System.out.println("true is array at: "+list.get(j).label);
+                    for (int l = j+1; l < list.size(); l++)
+                    {
+                        if (list.get(l).name.equals(list.get(k-1).name) && list.get(l).tag_type.equals("closing tag"))
+                        {
+                            //System.out.println("l label : "+list.get(l).label);
+                            //System.out.println("break is array at: "+list.get(l).label);
+                            break;
+                        }
+                        if(list.get(l).tag_type.equals("opening tag")&& list.get(l).name.equals(list.get(k).name))
+                        {
+                            list.get(l).is_Array_element = true;
+                        }
+
+
+                    }
+
+                }
             }
+
         }
-        return  is_array ;
     }
 
-    boolean isObject(ArrayList<Tag> list)
+    boolean isObject(ArrayList<Tag> list , int i)
     {
         is_json_Object=false;
-        int i=0;
         int j=0;
-
-        for(i=0;i<list.size();i++)
-        {
-            if(list.get(i).label==this.label && list.get(i).line==this.line)
-            {
-                break;
-            }
-        }
-
 
         for(j=i+1;j<list.size();j++)
         {
-            if(list.get(j).margin==list.get(i).margin && list.get(j).tag_type=="closing tag")   //closing tag
+            if(list.get(j).name.equals(list.get(i).name) && list.get(j).tag_type=="closing tag")   //closing tag
             {
                 break;
             }
 
-            if(((list.get(i).margin<list.get(j).margin) && (list.get(j).tag_type=="opening tag" && list.get(i).tag_type=="opening tag")) ||((list.get(i).margin<list.get(j).margin) && (list.get(j).tag_type=="both tags" && list.get(i).tag_type=="opening tag")))
+            if(((list.get(j).tag_type=="opening tag" && list.get(i).tag_type=="opening tag")) ||((list.get(j).tag_type=="both tags" && list.get(i).tag_type=="opening tag")))
             {
                 is_json_Object=true;
                 break;
@@ -86,6 +108,45 @@ public class Tag {
         }
 
         return is_json_Object;
+    }
+
+    void get_name()
+    {
+        int i=0;
+        String name="";
+        if(this.tag_type.equals("opening tag") || this.tag_type.equals("closing tag") )
+        {
+            if(this.tag_type.equals("opening tag"))
+            {
+                for (i = 0; i < this.label.length(); i++) {
+                    if (this.label.charAt(i) == '<') { i++ ; break;}
+                }
+                for (int j = i; j < this.label.length(); j++)
+                {
+                    if(label.charAt(j)!= '>'){name=name+this.label.charAt(j);}
+                    else{ break; }
+                }
+            }
+            if(this.tag_type.equals("closing tag"))
+            {
+                for (i = 0; i < this.label.length(); i++) {
+                    if (this.label.charAt(i) == '/') {i++ ; break;}
+                }
+                for (int j = i; j < this.label.length(); j++)
+                {
+                    if(label.charAt(j)!= '>'){name=name+this.label.charAt(j);}
+                    else{ break; }
+                }
+            }
+
+
+        }
+        else
+        {
+
+        }
+        this.name=name;
+
     }
 
 }
