@@ -5,6 +5,7 @@ public class Main {
 
 		ArrayList<String> s = new ArrayList<String>();
 		s.add( "<users>");
+		
 		s.add( "    <user>");
 		s.add( "        <id>1</id>");
 		s.add( "        <name>Ahmed Ali</name>");
@@ -60,6 +61,9 @@ public class Main {
 		s.add( "        </posts>");
 		s.add( "        <followers>");
 		s.add( "            <follower>");
+		s.add( "                <id>3</id>");
+		s.add( "            </follower>");
+		s.add( "            <follower>");
 		s.add( "                <id>1</id>");
 		s.add( "            </follower>");
 		s.add( "        </followers>");
@@ -84,15 +88,41 @@ public class Main {
 		s.add( "            <follower>");
 		s.add( "                <id>1</id>");
 		s.add( "            </follower>");
+		s.add( "            <follower>");
+		s.add( "                <id>4</id>");
+		s.add( "            </follower>");
 		s.add( "        </followers>");
 		s.add( "    </user>");
+		
+		s.add( "    <user>");
+		s.add( "        <id>4</id>");
+		s.add( "        <name>Ahmed Khaled</name>");
+		s.add( "        <posts>");
+		s.add( "            <post>");
+		s.add( "                <body>");
+		s.add( "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+		s.add( "                </body>");
+		s.add( "                <topics>");
+		s.add( "                    <topic>");
+		s.add( "                        sports");
+		s.add( "                    </topic>");
+		s.add( "                </topics>");
+		s.add( "            </post>");
+		s.add( "        </posts>");
+		s.add( "        <followers>");
+		s.add( "            <follower>");
+		s.add( "                <id>1</id>");
+		s.add( "            </follower>");
+		s.add( "        </followers>");
+		s.add( "    </user>");
+		
 		s.add( "</users>");
 
-		ArrayList<String> mini = XML.Minify(s);
+		ArrayList<User> SF = NetworkAnalysis.SuggestFollowers(s,2);
 		
-		for (int i = 0; i < mini.size(); i++) {
-			System.out.println(mini.get(i));
+		for (int i = 0; i < SF.size(); i++) {
+			System.out.println(SF.get(i));
 		}
-
+		
 	}
 }
