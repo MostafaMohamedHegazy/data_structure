@@ -181,10 +181,90 @@ public class User {
         while(!user_stack.isEmpty());
         //g.verticesMap.keySet() ;
     }
-    public int in_degree(Graph g,User v)
+    public static int in_degree(Graph g,User v)
     {
         g.validateVertex(v);
         return v.followers.size();
+    }
+    public static User max_indegree(Graph g, User start)
+    {
+        int max;
+        boolean[] visited=new boolean[g.verticesMap.keySet().size()];
+        User v=start;
+        User maxdeg;
+        Stack<User> user_stack = new Stack<>();
+        user_stack.push(start);
+        ArrayList<User> s;
+        max=in_degree( g,start);
+        maxdeg=start;
+        do
+        {
+            v=user_stack.pop();
+
+            if(in_degree( g , v)>max)
+            {
+                 max=in_degree( g,v);
+                 maxdeg=v;
+            }
+            if(!visited[v.ID-1])
+            {
+                s= (ArrayList<User>) g.verticesMap.get(v) ;
+                /*System.out.println(s);
+                System.out.println(s.get(0));
+                System.out.println(s.get(1));*/
+                for(int i=0 ;i<s.size();i++)
+                {
+                    if(!visited[s.get(i).ID-1])
+                    {
+                        user_stack.push(s.get(i));
+                    }
+                }
+                visited[v.ID-1]=true;
+
+            }
+        }
+        while(!user_stack.isEmpty());
+        return maxdeg;
+    }
+    public static User max_outdegree(Graph g, User start)
+    {
+        int max;
+        boolean[] visited=new boolean[g.verticesMap.keySet().size()];
+        User v=start;
+        User maxdeg;
+        Stack<User> user_stack = new Stack<>();
+        user_stack.push(start);
+        ArrayList<User> s;
+        max=in_degree( g,start);
+        maxdeg=start;
+        do
+        {
+            v=user_stack.pop();
+
+            if(g.out_degree(v)>max)
+            {
+                max=g.out_degree(v);
+                maxdeg=v;
+            }
+            if(!visited[v.ID-1])
+            {
+                s= (ArrayList<User>) g.verticesMap.get(v) ;
+                /*System.out.println(s);
+                System.out.println(s.get(0));
+                System.out.println(s.get(1));*/
+                for(int i=0 ;i<s.size();i++)
+                {
+                    if(!visited[s.get(i).ID-1])
+                    {
+                        user_stack.push(s.get(i));
+                    }
+                }
+                visited[v.ID-1]=true;
+
+            }
+        }
+        while(!user_stack.isEmpty());
+        return maxdeg;
     }
     public static void main(String[] args)
     {
@@ -229,12 +309,20 @@ public class User {
        // System.out.println(graph.verticesMap.get(user_ojects.get(0)));
         System.out.println("******************graph*******************\n");
         System.out.println(graph);
-        System.out.println("******************graph*******************\n");
+        System.out.println("****************************************");
         System.out.println("Vertices: " + graph.getNumVertices());
         System.out.println("Edges: " + graph.getNumEdges());
-       System.out.println(user_ojects.get(3)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(3)));
-        System.out.println("******************DFS  graph*******************\n");
-        DFS(graph,user_ojects.get(0));
+        //System.out.println("****************************************\n");
+        //System.out.println(user_ojects.get(0)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(0)));
+        //System.out.println(user_ojects.get(0)+"  IN DEGREE : "+User.in_degree(graph,user_ojects.get(0)));
+        System.out.println("\n******************MAX IN DEG*******************\n");
+        User u=max_indegree(graph , user_ojects.get(1));
+        System.out.println(u+"  IN DEGREE : "+User.in_degree(graph,u));
+        //DFS(graph,user_ojects.get(0));max_outdegree
+        System.out.println("\n******************MAX OUT DEG*******************\n");
+        User u1=max_outdegree(graph , user_ojects.get(1));
+        System.out.println(u1+"  out DEGREE : "+ graph.out_degree(u1));
+
 
     }
 
