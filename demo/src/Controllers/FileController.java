@@ -1,5 +1,7 @@
 package Controllers;
 
+import MainPackage.Post;
+import MainPackage.User;
 import MainPackage.XML;
 import MainPackage.XMLParser;
 import javafx.event.ActionEvent;
@@ -7,7 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+
+import static MainPackage.NetworkAnalysis.*;
 
 public class FileController implements Initializable {
     FileChooser f = new FileChooser();
@@ -33,19 +39,13 @@ public class FileController implements Initializable {
     private TextArea outputText;
 
     @FXML
+    private TextField searchArea;
+
+    @FXML
     private Button b1;
 
     @FXML
-    private Button b2;
-
-    @FXML
     private Button b3;
-
-    @FXML
-    private Button b4;
-
-    @FXML
-    private Button b5;
 
     @FXML
     private Button b6;
@@ -53,6 +53,10 @@ public class FileController implements Initializable {
     @FXML
     private Button b7;
 
+    @FXML
+    private ChoiceBox<String> myChoice;
+
+    private final String[] choices = {"Posts", "Suggestions", "Mutual"};
 
     @FXML
     public void fileChooser(ActionEvent e){
@@ -67,10 +71,9 @@ public class FileController implements Initializable {
 
         } catch (FileNotFoundException ex){
             inputText.setText("");
-        } catch (Exception exx){}
+        } catch (Exception ignored){}
         xmlText = inputText.getText();
         ss = XMLParser.Parse();
-
     }
 
     @FXML
@@ -178,9 +181,47 @@ public class FileController implements Initializable {
         b3.setStyle("-fx-background-color: #dda100");
     }
 
+    @FXML
+    void search(ActionEvent event) {
+        outputText.clear();
+        ArrayList<Post> teamExceptAbdo;
+        StringBuilder sb = new StringBuilder();
+        if (inputText.getText() == null)
+            return;
+
+        switch (myChoice.getValue()) {
+            case "Posts":
+                teamExceptAbdo = Search(ss, searchArea.getText());
+                for (Post s : teamExceptAbdo)
+                    sb.append(s.toString() + "\n");
+                outputText.setText(sb.toString());
+                break;
+            case "Mutual":
+
+                break;
+            case "Suggestions":
+
+                break;
+        }
+    }
+
+    @FXML
+    void influencer(ActionEvent event) {
+        outputText.clear();
+        outputText.setText(MostInfluencer(ss).toString());
+    }
+
+    @FXML
+    void mostConnected(ActionEvent event) {
+        outputText.clear();
+        User u = MostActive(ss);
+        outputText.setText(u.toString());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         f.setInitialDirectory(new File("../."));
+        myChoice.getItems().addAll(choices);
+        myChoice.setValue("Posts");
     }
 }

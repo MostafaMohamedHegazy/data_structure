@@ -2,14 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -17,26 +17,8 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.FileController">
-   <top>
-      <MenuBar style="-fx-background-color: #ffa100;" BorderPane.alignment="CENTER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="Choose File" />
-                  <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="Save" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="Choose File" />
-                  <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="Save" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-   </top>
    <center>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="235.0" prefWidth="212.0" BorderPane.alignment="CENTER">
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="306.0" prefWidth="608.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="15.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="150.0" />
@@ -98,7 +80,7 @@
       </GridPane>
    </center>
    <bottom>
-      <GridPane maxHeight="50.0" minHeight="40.0" BorderPane.alignment="CENTER">
+      <GridPane maxHeight="161.0" minHeight="40.0" prefHeight="110.0" prefWidth="594.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="30.0" percentWidth="20.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="30.0" percentWidth="20.0" />
@@ -107,24 +89,35 @@
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="30.0" percentWidth="20.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="10.999975585937499" minHeight="0.0" prefHeight="0.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="32.00000190734863" minHeight="5.4000126838684075" prefHeight="22.4" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="44.59998731613159" minHeight="10.0" prefHeight="27.8" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="87.0" minHeight="0.0" prefHeight="29.4" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="113.20003852844239" minHeight="10.0" prefHeight="43.79999999999999" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="28.199987792968756" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="b3" minWidth="80.0" mnemonicParsing="false" onAction="#toJsonConverter" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="To Json" GridPane.columnIndex="2" />
+            <Button fx:id="b3" minWidth="80.0" mnemonicParsing="false" onAction="#toJsonConverter" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #ffa100;" text="To Json" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button fx:id="b2" layoutX="10.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" onAction="#prettify" style="-fx-background-color: #ffa100;" text="Prettify" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button fx:id="b1" layoutX="99.0" layoutY="10.0" minWidth="80.0" mnemonicParsing="false" onAction="#corrector" style="-fx-background-color: #ffa100;" text="Correct" GridPane.halignment="CENTER" />
             <Button fx:id="b5" minWidth="80.0" mnemonicParsing="false" style="-fx-background-color: #ffa100;" text="Decompress" GridPane.columnIndex="4" />
             <Button fx:id="b4" minWidth="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #ffa100;" text="Compress" GridPane.columnIndex="3" />
-            <Button fx:id="b6" minWidth="80.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Load" GridPane.rowIndex="2" />
-            <Button fx:id="b7" minWidth="80.0" mnemonicParsing="false" onAction="#fileSaver" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Save" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button minWidth="80.0" mnemonicParsing="false" onAction="#printer" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Printer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button minWidth="80.0" mnemonicParsing="false" onAction="#minify" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Minify" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="b6" minWidth="80.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Load" GridPane.rowIndex="1" />
+            <Button fx:id="b7" minWidth="80.0" mnemonicParsing="false" onAction="#fileSaver" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Save" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button minWidth="80.0" mnemonicParsing="false" onAction="#printer" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Printer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button minWidth="80.0" mnemonicParsing="false" onAction="#minify" prefHeight="26.0" prefWidth="57.0" style="-fx-background-color: #ffa100;" text="Minify" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="b61" layoutX="30.0" layoutY="30.0" minWidth="80.0" mnemonicParsing="false" onAction="#influencer" prefHeight="27.0" prefWidth="104.0" style="-fx-background-color: #ffa100;" text="Influencer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="b611" layoutX="30.0" layoutY="97.0" minWidth="80.0" mnemonicParsing="false" onAction="#mostConnected" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #ffa100;" text="Most Connected" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" />
          </padding>
       </GridPane>
    </bottom>
+   <top>
+      <HBox prefHeight="34.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchArea" prefHeight="26.0" prefWidth="404.0" />
+            <ChoiceBox fx:id="myChoice" prefHeight="28.0" prefWidth="108.0" />
+            <Button mnemonicParsing="false" onAction="#search" prefHeight="28.0" prefWidth="95.0" text="Search" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
