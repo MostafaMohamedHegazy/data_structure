@@ -181,6 +181,41 @@ public class User {
         while(!user_stack.isEmpty());
         //g.verticesMap.keySet() ;
     }
+
+    static User user_search(Graph g, User start, int id)
+    {
+        boolean[] visited=new boolean[g.verticesMap.keySet().size()];
+        User v=start;
+        Stack<User> user_stack = new Stack<>();
+        user_stack.push(start);
+        ArrayList<User> s;
+
+        do
+        {
+            v=user_stack.pop();
+            if(v.ID==id){ return v;}
+
+            if(!visited[v.ID-1])
+            {
+                s= (ArrayList<User>) g.verticesMap.get(v) ;
+                /*System.out.println(s);
+                System.out.println(s.get(0));
+                System.out.println(s.get(1));*/
+                for(int i=0 ;i<s.size();i++)
+                {
+                    if(!visited[s.get(i).ID-1])
+                    {
+                        user_stack.push(s.get(i));
+                    }
+                }
+                visited[v.ID-1]=true;
+
+            }
+        }
+        while(!user_stack.isEmpty());
+        //g.verticesMap.keySet() ;
+        return null;
+    }
     public static int in_degree(Graph g,User v)
     {
         g.validateVertex(v);
@@ -322,7 +357,9 @@ public class User {
         System.out.println("\n******************MAX OUT DEG*******************\n");
         User u1=max_outdegree(graph , user_ojects.get(1));
         System.out.println(u1+"  out DEGREE : "+ graph.out_degree(u1));
-
+        System.out.println("\n******************search with id*******************\n");
+        System.out.println("id  3  :  "+user_search(graph,user_ojects.get(1), 3));
+        System.out.println("\n****************************************************\n");
 
     }
 

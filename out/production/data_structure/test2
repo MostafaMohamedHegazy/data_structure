@@ -78,9 +78,7 @@
             <follower>
                  <id>4</id>
             </follower>
-            <follower>
-                  <id>2</id>
-            </follower>
+
         </followers>
     </user>
     <user>
@@ -105,9 +103,7 @@
                 <follower>
                       <id>3</id>
                 </follower>
-                <follower>
-                       <id>2</id>
-                </follower>
+
             </followers>
     </user>
 </users>

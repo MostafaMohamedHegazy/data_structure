@@ -38,7 +38,7 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.User">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="data_structure" />
@@ -62,8 +62,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.User" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.User" />
         <item itemvalue="Application.ReadFile" />
       </list>
     </recent_temporary>

@@ -77,7 +77,7 @@ public class Graph<User> implements Iterable<User> {
         ArrayList<String> b = new ArrayList<>();
         b=ReadFile.returna_array();
 
-       Graph<User> graph = new Graph<>();
+        Graph<User> graph = new Graph<>();
 
         /*graph.addEdge("A", "B");
         graph.addEdge("A", "C");
