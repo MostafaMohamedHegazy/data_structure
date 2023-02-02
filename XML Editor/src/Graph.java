@@ -33,7 +33,6 @@ public class Graph<T> implements Iterable<User> {
         if (!hasVertex(v)) addVertex(v);
         if (!hasVertex(w)) addVertex(w);
         if (!hasEdge(v, w)) edgesCount++;
-        //verticesMap.get(v).add(w);
         verticesMap.get(w).add(v);
     }
 
@@ -70,4 +69,62 @@ public class Graph<T> implements Iterable<User> {
 
         return builder.toString();
     }
+    
+    static User user_search(ArrayList<User> vertices, int id) {
+		for (int i = 0; i < vertices.size(); i++) {
+			if (vertices.get(i).ID == id) {
+				return vertices.get(i);
+			}
+		}
+		return null;
+	}
+    
+    public static int in_degree(User v) {
+		return v.in_degree;
+	}
+    
+    public static User max_indegree(Graph<User> g, ArrayList<User> vertices) {
+		User maxdeg = vertices.get(0);
+		int max = 0;
+		for (int i = 0; i < vertices.size(); i++) {
+			if (max < in_degree(vertices.get(i))) {
+				maxdeg = vertices.get(i);
+			}
+		}
+		return maxdeg;
+	}
+    
+    public static User max_outdegree(Graph<User> g, ArrayList<User> vertices) {
+		User maxdeg = vertices.get(0);
+		int max;
+		ArrayList<User> s2;
+		s2 = (ArrayList<User>) g.verticesMap.get(vertices.get(0));
+		max = s2.size();
+		for (int i = 0; i < vertices.size(); i++) {
+			if (s2 != null) {
+				if (max < g.out_degree(vertices.get(i))) {
+					maxdeg = vertices.get(i);
+				}
+			}
+			s2 = (ArrayList<User>) g.verticesMap.get(vertices.get(i));
+		}
+		return maxdeg;
+	}
+    
+    public static Graph<User> fill_in_graph(ArrayList<User> user_ojects) {
+		Graph<User> graph = new Graph<User>();
+		ArrayList<User> temp_followers;
+		for (int i = 0; i < user_ojects.size(); i++) {
+			graph.addVertex(user_ojects.get(i));
+		}
+		for (int i = 0; i < user_ojects.size(); i++) {
+			temp_followers = user_ojects.get(i).followers;
+
+			for (int j = 0; j < temp_followers.size(); j++) {
+				graph.addEdge(temp_followers.get(j), user_ojects.get(i));
+			}
+		}
+		return graph;
+	}
+
 }

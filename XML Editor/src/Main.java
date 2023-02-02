@@ -39,6 +39,9 @@ public class Main {
 		s.add( "                <id>2</id>");
 		s.add( "            </follower>");
 		s.add( "            <follower>");
+		s.add( "                <id>4</id>");
+		s.add( "            </follower>");
+		s.add( "            <follower>");
 		s.add( "                <id>3</id>");
 		s.add( "            </follower>");
 		s.add( "        </followers>");
@@ -63,9 +66,6 @@ public class Main {
 		s.add( "            <follower>");
 		s.add( "                <id>3</id>");
 		s.add( "            </follower>");
-		s.add( "            <follower>");
-		s.add( "                <id>1</id>");
-		s.add( "            </follower>");
 		s.add( "        </followers>");
 		s.add( "    </user>");
 
@@ -85,9 +85,6 @@ public class Main {
 		s.add( "            </post>");
 		s.add( "        </posts>");
 		s.add( "        <followers>");
-		s.add( "            <follower>");
-		s.add( "                <id>1</id>");
-		s.add( "            </follower>");
 		s.add( "            <follower>");
 		s.add( "                <id>4</id>");
 		s.add( "            </follower>");
@@ -118,11 +115,17 @@ public class Main {
 		
 		s.add( "</users>");
 
-		ArrayList<User> SF = NetworkAnalysis.SuggestFollowers(s,2);
+		User MIU = NetworkAnalysis.MostInfluencer(s);
+		User MFU = NetworkAnalysis.MostActive(s);
+		ArrayList<User> MF = NetworkAnalysis.MutualFollowers(s,2, 1);
+		ArrayList<User> SF = NetworkAnalysis.SuggestFollowers(s, 2);
+		ArrayList<Post> SP = NetworkAnalysis.Search(s, "sports");
 		
-		for (int i = 0; i < SF.size(); i++) {
-			System.out.println(SF.get(i));
-		}
+		System.out.println(MIU);
+		System.out.println(MFU);
+		System.out.println(MF);
+		System.out.println(SF);
+		System.out.println(SP);
 		
 	}
 }
