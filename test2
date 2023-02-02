@@ -80,9 +80,7 @@
             <follower>
                 <id>1</id>
             </follower>
-            <follower>
-                 <id>4</id>
-            </follower>
+
 
         </followers>
     </user>
@@ -103,9 +101,7 @@
             </posts>
             <followers>
 
-                <follower>
-                      <id>3</id>
-                </follower>
+
 
             </followers>
     </user>

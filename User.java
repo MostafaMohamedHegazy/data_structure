@@ -5,6 +5,7 @@ import java.util.Stack;
 public class User {
 
     public int ID;
+    public int in_degree;
     public String name;
     public ArrayList<Post> posts;
     public ArrayList<User> followers;
@@ -160,7 +161,8 @@ public class User {
 
         do
         {
-            System.out.println(v=user_stack.pop());
+            v=user_stack.pop();
+            if(!visited[v.ID-1]){System.out.println(v);}
             if(!visited[v.ID-1])
             {
                 s= (ArrayList<User>) g.verticesMap.get(v) ;
@@ -182,7 +184,16 @@ public class User {
         //g.verticesMap.keySet() ;
     }
 
-    static User user_search(Graph g,ArrayList<User> vertices, int id )
+    /*static User user_search(ArrayList<User> vertices, int id )
+    {
+        //User u=null;
+        for(int i=0 ; i< vertices.size();i++)
+        {
+            if(vertices.get(i).ID==id){ return vertices.get(i);}
+        }
+        return null;
+    }*/
+    static User user_search(ArrayList<User> vertices, int id )
     {
         //User u=null;
         for(int i=0 ; i< vertices.size();i++)
@@ -191,7 +202,8 @@ public class User {
         }
         return null;
     }
-    static User user_search(Graph g, User start, int id)
+
+    static User user_search(Graph g,ArrayList<User> vertices, User start, int id)
     {
         boolean[] visited=new boolean[g.verticesMap.keySet().size()];
         User v=start;
@@ -202,7 +214,7 @@ public class User {
         do
         {
             v=user_stack.pop();
-            if(v.ID==id){ return v;}
+            if(!visited[v.ID-1]){if(v.ID==id){ return v;}}
 
             if(!visited[v.ID-1])
             {
@@ -223,31 +235,60 @@ public class User {
         }
         while(!user_stack.isEmpty());
         //g.verticesMap.keySet() ;
+        for(int m=0 ; m< visited.length;m++)
+        {
+            if(!visited[m])
+            {
+                System.out.println("hi"+"m = "+m);
+                user_search( g, vertices ,user_search(vertices, m+1) ,m+1);
+            }
+        }
         return null;
     }
-    public static int in_degree(Graph g,User v)
+    public static int in_degree(Graph graph,ArrayList<User> vertices, User v)
     {
-        g.validateVertex(v);
-        return v.followers.size();
+        graph.validateVertex(v);
+        int indeg=0;
+        //return v.followers.size();
+        ArrayList<User> temp_followers = new ArrayList<>();
+        //for(int i=0 ; i< vertices.size();i++)
+        //{
+            temp_followers= v.followers;
+            //System.out.println(user_ojects.get(i));
+            //System.out.println(temp_followers);
+            for(int j=0 ; j<temp_followers.size();j++)
+            {
+                //System.out.println("user_ojects.get(i)      "+user_ojects.get(i).ID);
+                //System.out.println("temp_followers.get(j)   "+temp_followers.get(j).ID);
+                if(temp_followers.get(j).ID==v.ID)
+                {
+                    indeg++;
+                }//graph.addEdge( vertices.get(i),temp_followers.get(j));
+
+            }
+            //System.out.println(user_ojects.get(i).toString());
+            //System.out.println(b);
+        //}
+        return indeg;
     }
     public static User max_indegree(Graph g, ArrayList<User> vertices)
     {
         User maxdeg= vertices.get(0);
-        int max;
+        int max=0;
         ArrayList<User> s1=new ArrayList<>();
         ArrayList<User> s2=new ArrayList<>();
         s2=(ArrayList<User>) g.verticesMap.get(vertices.get(0));
         max=s2.size();
         for(int i=0 ; i<vertices.size();i++)
         {
-            if (max < in_degree(g,vertices.get(i)))
+            if (max < in_degree(g,vertices,vertices.get(i)))
             {
                 maxdeg = vertices.get(i);
             }
         }
         return maxdeg;
     }
-    public static User max_indegree(Graph g, User start)
+    public static User max_indegree(Graph g, ArrayList<User> vertices,User start)
     {
         int max;
         boolean[] visited=new boolean[g.verticesMap.keySet().size()];
@@ -256,16 +297,18 @@ public class User {
         Stack<User> user_stack = new Stack<>();
         user_stack.push(start);
         ArrayList<User> s;
-        max=in_degree( g,start);
+        max=in_degree( g,vertices,start);
         maxdeg=start;
         do
         {
             v=user_stack.pop();
-
-            if(in_degree( g , v)>max)
+            if(!visited[v.ID-1])
             {
-                 max=in_degree( g,v);
-                 maxdeg=v;
+                if (in_degree(g, vertices,v) > max)
+                {
+                    max = in_degree(g,vertices, v);
+                    maxdeg = v;
+                }
             }
             if(!visited[v.ID-1])
             {
@@ -285,6 +328,7 @@ public class User {
             }
         }
         while(!user_stack.isEmpty());
+
         return maxdeg;
     }
 
@@ -318,16 +362,18 @@ public class User {
         Stack<User> user_stack = new Stack<>();
         user_stack.push(start);
         ArrayList<User> s;
-        max=in_degree( g,start);
+        max= g.out_degree(start);
         maxdeg=start;
         do
         {
             v=user_stack.pop();
-
-            if(g.out_degree(v)>max)
+            if(!visited[v.ID-1])
             {
-                max=g.out_degree(v);
-                maxdeg=v;
+                if (g.out_degree(v) > max)
+                {
+                    max = g.out_degree(v);
+                    maxdeg = v;
+                }
             }
             if(!visited[v.ID-1])
             {
@@ -348,11 +394,11 @@ public class User {
 
         return maxdeg;
     }
-    public static ArrayList<User> mutual_followers(Graph g, ArrayList<User> vertices, int n1, int n2)
+    public static ArrayList<User> mutual_followers(Graph g, ArrayList<User> vertices, User start, int n1, int n2)
     {
         ArrayList<User> mutual_users = new ArrayList<>();
-        User u1=user_search(g, vertices,n1);
-        User u2=user_search(g, vertices,n2);
+        User u1=user_search(vertices,n1);
+        User u2=user_search(vertices, n2);
         for(int i=0; i<u1.followers.size(); i++)
         {
             for(int j=0; j<u2.followers.size(); j++)
@@ -365,7 +411,7 @@ public class User {
         }
         return mutual_users;
     }
-    public static Graph fill_in_graph(ArrayList<User> user_ojects )
+   /* public static Graph fill_in_graph(ArrayList<User> user_ojects )
     {
         Graph<User> graph = new Graph<>();
         ArrayList<User> temp_followers = new ArrayList<>();
@@ -391,8 +437,36 @@ public class User {
             //System.out.println(b);
         }
         return graph;
-    }
+    }*/
 
+    public static Graph fill_in_graph(ArrayList<User> user_ojects )
+    {
+        Graph<User> graph = new Graph<>();
+        ArrayList<User> temp_followers = new ArrayList<>();
+        for(int i=0 ; i<user_ojects.size();i++)
+        {
+            graph.addVertex(user_ojects.get(i));
+            //System.out.println(user_ojects.get(i).toString());
+            //System.out.println(b);
+        }
+        for(int i=0 ; i<user_ojects.size();i++)
+        {
+            temp_followers=user_ojects.get(i).followers;
+            //System.out.println(user_ojects.get(i));
+            //System.out.println(temp_followers);
+
+            for(int j=0 ; j<temp_followers.size();j++)
+            {
+                //System.out.println("user_ojects.get(i)      "+user_ojects.get(i).ID);
+                //System.out.println("temp_followers.get(j)   "+temp_followers.get(j).ID);
+                graph.addEdge(temp_followers.get(j),user_ojects.get(i));
+
+            }
+            //System.out.println(user_ojects.get(i).toString());
+            //System.out.println(b);
+        }
+        return graph;
+    }
     public static void main(String[] args)
     {
 
@@ -418,19 +492,25 @@ public class User {
         //System.out.println(user_ojects.get(0)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(0)));
         //System.out.println(user_ojects.get(0)+"  IN DEGREE : "+User.in_degree(graph,user_ojects.get(0)));
         System.out.println("\n******************MAX IN DEG edited*******************\n");
-        User u=max_indegree(graph , user_ojects);
-        System.out.println(u+"  IN DEGREE : "+User.in_degree(graph,u));
+        User u=max_indegree(graph ,user_ojects);
+        System.out.println(u+"  IN DEGREE : "+User.in_degree(graph,user_ojects,u));
         //DFS(graph,user_ojects.get(0));max_outdegree
         System.out.println("\n******************MAX OUT DEG edited*******************\n");
-        User u1=max_out(graph , user_ojects );
+        User u1=max_out(graph ,user_ojects);
         System.out.println(u1+"  out DEGREE : "+ graph.out_degree(u1));
         System.out.println("\n******************search with id edited*******************\n");
-        System.out.println("id  4  :  "+user_search(graph,user_ojects, 4));
+        System.out.println("id  4 :  "+user_search(user_ojects, 4));
         System.out.println("\n****************************************************\n");
-        System.out.println(user_search(graph,user_ojects,4).followers);
-        System.out.println(user_search(graph,user_ojects,1).followers);
+        System.out.println(user_search(user_ojects, 3).followers);
+        System.out.println(user_search(user_ojects, 1).followers);
         System.out.println("\n**********************mutual followers edited******************\n");
-        System.out.println(mutual_followers( graph , user_ojects , 4,1 ));
+        System.out.println(mutual_followers( graph , user_ojects,user_ojects.get(0) , 3,1 ));
+        //System.out.println("***************DFS******************");
+        //DFS(graph, user_ojects.get(0));
+        System.out.println("***************ahmed list**********************");
+        System.out.println(user_ojects);
+        //System.out.println("*****************************************************");
+        //System.out.println("id  4 :  "+user_search(user_ojects, 4));
 
 
     }
