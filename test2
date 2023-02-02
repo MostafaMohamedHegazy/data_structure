@@ -31,7 +31,9 @@
             <follower>
                 <id>2</id>
             </follower>
-
+            <follower>
+                 <id>3</id>
+            </follower>
 
         </followers>
     </user>
@@ -53,6 +55,9 @@
         <followers>
             <follower>
                 <id>1</id>
+            </follower>
+            <follower>
+                 <id>3</id>
             </follower>
         </followers>
     </user>
@@ -97,9 +102,7 @@
                 </post>
             </posts>
             <followers>
-                <follower>
-                    <id>1</id>
-                </follower>
+
                 <follower>
                       <id>3</id>
                 </follower>
