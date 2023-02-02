@@ -245,9 +245,9 @@ public class User {
         }
         return null;
     }
-    public static int in_degree(Graph graph,ArrayList<User> vertices, User v)
+    public static int in_degree( User v)
     {
-        graph.validateVertex(v);
+        /*graph.validateVertex(v);
         int indeg=0;
         //return v.followers.size();
         ArrayList<User> temp_followers = new ArrayList<>();
@@ -268,8 +268,8 @@ public class User {
             }
             //System.out.println(user_ojects.get(i).toString());
             //System.out.println(b);
-        //}
-        return indeg;
+        //}*/
+        return v.in_degree;
     }
     public static User max_indegree(Graph g, ArrayList<User> vertices)
     {
@@ -281,7 +281,7 @@ public class User {
         max=s2.size();
         for(int i=0 ; i<vertices.size();i++)
         {
-            if (max < in_degree(g,vertices,vertices.get(i)))
+            if (max < in_degree(vertices.get(i)))
             {
                 maxdeg = vertices.get(i);
             }
@@ -297,16 +297,16 @@ public class User {
         Stack<User> user_stack = new Stack<>();
         user_stack.push(start);
         ArrayList<User> s;
-        max=in_degree( g,vertices,start);
+        max=in_degree( start);
         maxdeg=start;
         do
         {
             v=user_stack.pop();
             if(!visited[v.ID-1])
             {
-                if (in_degree(g, vertices,v) > max)
+                if (in_degree(v) > max)
                 {
-                    max = in_degree(g,vertices, v);
+                    max = in_degree(v);
                     maxdeg = v;
                 }
             }
@@ -459,6 +459,7 @@ public class User {
             {
                 //System.out.println("user_ojects.get(i)      "+user_ojects.get(i).ID);
                 //System.out.println("temp_followers.get(j)   "+temp_followers.get(j).ID);
+                temp_followers.get(j).in_degree++;
                 graph.addEdge(temp_followers.get(j),user_ojects.get(i));
 
             }
@@ -488,12 +489,13 @@ public class User {
         System.out.println("****************************************");
         System.out.println("Vertices: " + graph.getNumVertices());
         System.out.println("Edges: " + graph.getNumEdges());
-        //System.out.println("****************************************\n");
+        System.out.println("****************innnnnnnnnnnnnnnnn**********\n");
         //System.out.println(user_ojects.get(0)+"  OUT DEGREE : "+graph.out_degree(user_ojects.get(0)));
-        //System.out.println(user_ojects.get(0)+"  IN DEGREE : "+User.in_degree(graph,user_ojects.get(0)));
+        System.out.println(user_ojects.get(2)+"  IN DEGREE : "+User.in_degree(user_ojects.get(2)));
+        System.out.println("****************************************\n");
         System.out.println("\n******************MAX IN DEG edited*******************\n");
         User u=max_indegree(graph ,user_ojects);
-        System.out.println(u+"  IN DEGREE : "+User.in_degree(graph,user_ojects,u));
+        System.out.println(u+"  IN DEGREE : "+User.in_degree(u));
         //DFS(graph,user_ojects.get(0));max_outdegree
         System.out.println("\n******************MAX OUT DEG edited*******************\n");
         User u1=max_out(graph ,user_ojects);
