@@ -1,9 +1,6 @@
 package Controllers;
 
-import MainPackage.Post;
-import MainPackage.User;
-import MainPackage.XML;
-import MainPackage.XMLParser;
+import MainPackage.*;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -23,7 +20,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import static MainPackage.Graph.fill_in_graph;
 import static MainPackage.NetworkAnalysis.*;
+import static MainPackage.User.fromXML;
 import static MainPackage.XML.CompressFile;
 import static MainPackage.XML.DecompressFile;
 
@@ -36,8 +35,8 @@ public class FileController implements Initializable {
     private int id1, id2;
 
     public static String xmlText;
-    
-    public ArrayList<String> ss;
+
+    private ArrayList<String> ss;
 
     @FXML
     private TextArea inputText;
@@ -52,13 +51,41 @@ public class FileController implements Initializable {
     private Button b1;
 
     @FXML
+    private Button b2;
+
+    @FXML
     private Button b3;
+
+    @FXML
+    private Button b4;
+
+    @FXML
+    private Button b5;
 
     @FXML
     private Button b6;
 
     @FXML
     private Button b7;
+
+    @FXML
+    private Button b8;
+
+    @FXML
+    private Button b9;
+
+    @FXML
+    private Button b10;
+
+    @FXML
+    private Button b11;
+
+    @FXML
+    private Button b12;
+
+    @FXML
+    private Button b13;
+
 
     @FXML
     private ChoiceBox<String> myChoice;
@@ -84,14 +111,26 @@ public class FileController implements Initializable {
     }
 
     @FXML
-    public void fileSaver(ActionEvent e){
+    public void inputFileSaver(ActionEvent e){
+        File file = f.showSaveDialog(new Stage());
+        f.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("File", "*"));
+        if (file != null)
+        {
+            saveSystem(file, inputText.getText());
+            b9.setStyle("-fx-background-color: #dda100");
+        }
+    }
+
+    @FXML
+    public void outputFileSaver(ActionEvent e){
         File file = f.showSaveDialog(new Stage());
         f.getExtensionFilters()
                 .add(new FileChooser.ExtensionFilter("File", "*"));
         if (file != null)
         {
             saveSystem(file, outputText.getText());
-            b7.setStyle("-fx-background-color: #dda100");
+            b10.setStyle("-fx-background-color: #dda100");
         }
     }
 
@@ -108,13 +147,24 @@ public class FileController implements Initializable {
     @FXML
     void compress(ActionEvent event) {
         String filePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."));
-        CompressFile(filePath, ".xml");
+        StringBuilder info = new StringBuilder();
+        CompressFile(filePath, ".xml", info);
+        outputText.clear();
+        outputText.setText(info.toString());
+        b4.setStyle("-fx-background-color: #dda100");
+
     }
 
     @FXML
     void decompress(ActionEvent event) {
+        outputText.clear();
         String filePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."));
-        DecompressFile(filePath, ".xml");
+        StringBuilder []endFile = { new StringBuilder(), new StringBuilder()};
+        DecompressFile(filePath, ".xml", endFile);
+        outputText.setText(endFile[1].toString());
+        outputText.appendText("\n--------------------------------------------------------------------------------\n");
+        outputText.appendText(endFile[0].toString());
+        b5.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -169,6 +219,7 @@ public class FileController implements Initializable {
         outputText.appendText("");
         for (String s: ss)
             outputText.appendText(s+"\n");
+        b7.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -189,7 +240,7 @@ public class FileController implements Initializable {
         for (String s : omar)
             sb.append(s + "\n");
         outputText.setText(sb.toString());
-        b3.setStyle("-fx-background-color: #dda100");
+        b2.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -197,7 +248,7 @@ public class FileController implements Initializable {
         ArrayList<String> ahmed = XML.Minify(ss);
         StringBuilder sb = new StringBuilder(ahmed.get(0));
         outputText.setText(sb.toString());
-        b3.setStyle("-fx-background-color: #dda100");
+        b8.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -258,6 +309,7 @@ public class FileController implements Initializable {
     void influencer(ActionEvent event) {
         outputText.clear();
         outputText.setText(MostInfluencer(ss).toString());
+        b11.setStyle("-fx-background-color: #dda100");
     }
 
     @FXML
@@ -265,6 +317,16 @@ public class FileController implements Initializable {
         outputText.clear();
         User u = MostActive(ss);
         outputText.setText(u.toString());
+        b12.setStyle("-fx-background-color: #dda100");
+    }
+
+    @FXML
+    void printGraph(ActionEvent event) {
+        outputText.clear();
+        Graph<User> graph = new Graph();
+        graph = fill_in_graph(fromXML(ss));
+        outputText.setText(graph.toString());
+        b13.setStyle("-fx-background-color: #dda100");
     }
 
     @Override

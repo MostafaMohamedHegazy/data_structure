@@ -483,7 +483,7 @@ public class XML {
 
     }
 
-    public static boolean CompressFile(String file,String extension){
+    public static boolean CompressFile(String file,String extension, StringBuilder info){
         String filepath=file+extension;
         String compFilepath=file+"compressed"+extension;
         try{
@@ -499,7 +499,8 @@ public class XML {
             comp.close();
             long originalSize=new File(filepath).length();
             long compSize=new File(compFilepath).length();
-            System.out.println("original file size:"+originalSize+"and the new file size:"+compSize);
+            info.append("Original file size: "+originalSize+"\nThe new file size: "+compSize
+                    +"\nThe new file is inside the same folder with the XML you chosen");
             if (compSize<originalSize){
                 return true;
             }
@@ -517,9 +518,9 @@ public class XML {
         }
     }
 
-    public static boolean DecompressFile(String file,String extension){
+    public static boolean DecompressFile(String file,String extension, StringBuilder[] endFile){
         String filepath=file+extension;
-        String decompFilepath=file+"decompressed"+extension;
+        String decompFilepath = file+"decompressed"+extension;
         try{
             FileInputStream fileRead=new FileInputStream(filepath);
             FileOutputStream fileWrite=new FileOutputStream(decompFilepath);
@@ -531,8 +532,7 @@ public class XML {
                 }
                 int i;
                 while((i=fileReaded.read())!=-1){
-                    System.out.println((char)i);
-
+                    endFile[0].append((char)i);
                 }
                 fileRead.close();
                 decomp.close();
@@ -540,17 +540,17 @@ public class XML {
 
             long originalSize=new File(filepath).length();
             long decompSize=new File(decompFilepath).length();
-            System.out.println("original file size:"+originalSize+"and the new file size:"+decompSize);
+            endFile[1].append("Original file size: "+originalSize+" \nThe new file size: " + decompSize
+                    + "\nThe new file is inside the same folder with the XML you chosen");
             if (decompSize > originalSize){
                 return true;
             }
             else{
                 File fileToDelete=new File(decompFilepath);
                 fileToDelete.delete();
-                System.out.println("can't decompress he file");
+                endFile[1].append("can't decompress he file");
                 return false;
             }
-
         }
         catch(Exception e){
             System.out.println(e);

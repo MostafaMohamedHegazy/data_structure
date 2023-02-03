@@ -112,11 +112,17 @@ The temp string is then added to an arraylist of strings in which each entry in 
 
 We loop over the characters of the XML file while transferring them to a new ArrayList ignoring new lines and spacing (only transferring the characters).
 
----
+___
 
-### Network analysis
+### Fill_in_Graph
 
-**From XML to User Objects:**
+It takes the array list of user objects as an argument and add each user as a vertex in the graph and add the adjacency list of each user in the graph such that the followers of this user is its adjacency list.
+
+___
+
+## Network analysis
+
+**From XML to User Objects**
 
 - First, we look for the opening tag of a user then we loop over the lines until the closing tag of said user.
 
@@ -174,7 +180,7 @@ We loop over the characters of the XML file while transferring them to a new Arr
 
 - The time complexity is O(n^2).
 
-- The space complexity is O().
+- The space complexity is O(U\*P\*C).
 
 ___
 
@@ -191,7 +197,7 @@ ___
 |        Mutual followers         |      O(F)       |       O(F)       |
 |           User_Search           |      O(U)       |       O(1)       |
 |          Fill_in_Graph          |     O(U*F)      |       O(U)       |
-|           Post Search           |                 |                  |
+|           Post Search           |   O(U\*P\*C)    |       O(U)       |
 |      User Objects from XML      |      O(N)       |       O(n)       |
 |       Recommend Followers       |      O(U)       |       O(U)       |
 
@@ -204,3 +210,5 @@ ___
 * Where U is the number of **users** in **Graph**.
 
 - Where F is the number of **Followers** of the user.
+- Where P is the number of **Posts** of each user.
+- Where C is the number of **Characters** of each Post.
