@@ -24,9 +24,16 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static MainPackage.NetworkAnalysis.*;
+import static MainPackage.XML.CompressFile;
+import static MainPackage.XML.DecompressFile;
 
 public class FileController implements Initializable {
     FileChooser f = new FileChooser();
+
+    File file;
+
+    private boolean entered = false;
+    private int id1, id2;
 
     public static String xmlText;
     
@@ -62,7 +69,7 @@ public class FileController implements Initializable {
     public void fileChooser(ActionEvent e){
         inputText.clear();
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
-        File file = f.showOpenDialog(new Stage());
+        file = f.showOpenDialog(new Stage());
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine())
@@ -96,6 +103,18 @@ public class FileController implements Initializable {
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void compress(ActionEvent event) {
+        String filePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."));
+        CompressFile(filePath, ".xml");
+    }
+
+    @FXML
+    void decompress(ActionEvent event) {
+        String filePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf("."));
+        DecompressFile(filePath, ".xml");
     }
 
     @FXML
@@ -184,25 +203,55 @@ public class FileController implements Initializable {
     @FXML
     void search(ActionEvent event) {
         outputText.clear();
-        ArrayList<Post> teamExceptAbdo;
+        ArrayList<Post> mano;
+        ArrayList<User> ahmed;
+        ArrayList<User> mostafa;
         StringBuilder sb = new StringBuilder();
         if (inputText.getText() == null)
             return;
 
         switch (myChoice.getValue()) {
             case "Posts":
-                teamExceptAbdo = Search(ss, searchArea.getText());
-                for (Post s : teamExceptAbdo)
-                    sb.append(s.toString() + "\n");
+                mano = Search(ss, searchArea.getText());
+                for (Post s : mano)
+                    sb.append(s.toString()).append("\n");
                 outputText.setText(sb.toString());
                 break;
             case "Mutual":
+                if (!entered) {
+                    id1 = Integer.parseInt(searchArea.getText());
+                    searchArea.clear();
+                    searchArea.setPromptText("Enter the second ID");
+                    entered = true;
+                }
+                else {
+                    id2 = Integer.parseInt(searchArea.getText());
+                    entered = false;
+                    mostafa = MutualFollowers(ss, id1,id2);
+                    for (User s : mostafa)
+                        sb.append(s.toString()).append("\n");
+                    outputText.setText(sb.toString());
+                    searchArea.setPromptText("Enter the first ID");
+                    id1 = 0; id2 = 0;
 
+                }
                 break;
             case "Suggestions":
-
+                ahmed = SuggestFollowers(ss, Integer.parseInt(searchArea.getText()));
+                for (User u : ahmed)
+                    sb.append(u.toString()).append("\n");
+                outputText.setText(sb.toString());
                 break;
         }
+    }
+
+    void choiceHandler(ActionEvent event) {
+        if (myChoice.getValue().equals("Mutual"))
+            searchArea.setPromptText("Enter First ID");
+        else if(myChoice.getValue().equals("Suggestions"))
+            searchArea.setPromptText("Enter an ID");
+        else
+            searchArea.setPromptText("Enter a word from a post");
     }
 
     @FXML
@@ -223,5 +272,8 @@ public class FileController implements Initializable {
         f.setInitialDirectory(new File("../."));
         myChoice.getItems().addAll(choices);
         myChoice.setValue("Posts");
+        myChoice.setOnAction(this::choiceHandler);
+        searchArea.setPromptText("Enter a word from a post");
     }
+
 }
