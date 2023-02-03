@@ -38,17 +38,19 @@ This function is doing exactly the opposite of the Compression function, it is u
 
 - **Is_Array**
 
-This function takes an array list of Tags ( opening tags , closing tags and their content).
+this function takes an array list of Tags ( opening tags , closing tags and their content )
 
-This function is defined within the class Tag , it determines whether this opening tag represents an array or not.
+this function is defined within the class Tag , it determines whether this opening tag represents an array or not 
 
-It returns a Boolean data type.
+it returns a Boolean data type
 
-It checks if the next opening tag is repeated before the closing tag of the tag that you want to check if it represents an array.
+it checks if the next opening tag (1st opening tag after the opening tag to be checked) is repeated after its closing tag and before the closing tag of the tag that you want to check if it represents an array
 
-It breaks when the current tag is the closing tag of the tag that you want to check if it represents an array.
+if the tag represents an array , the next opening tag (1st opening tag after the opening tag to be checked) is marked as 1st array element and whenever it appears before the closing tag of the tag to be checked , it will be marked as array element
 
-- **isObject**
+it breaks when the current tag is the closing tag of the tag that you want to check if it represents an array.
+
+* **isObject**
 
 This function takes an array list of Tags ( opening tags , closing tags and their content).
 
@@ -80,21 +82,19 @@ Is then added to an arraylist of strings in which each entry in this arraylist r
 
 We define a temp string variable and add to it the conversion of the closing tag from xml to json after the following checks : we pop the top of opening tag stack and check if it is an array and if it is a json object and according to these checks we specify the type of brackets ] or } and add them to the temp string.
 
-We also check whether the next tag is at the same level of the current closing tag and accordingly we add comma or not to our temp string.
-
-The temp string is then added to an arraylist of strings in which each entry in this arraylist represent a line.
+The temp string is then added to an array list of strings in which each entry in this array list represents a line.
 
 ###### Else if the current tag is both tags
 
 This means that this line contains opening tag closing tag and the data only , no other internal opening tags.
 
-We define a temp string variable and add to it the conversion of both tag from xml to json.
+ we define a temp string variable and add to it the conversion of both tag from xml to json.
 
-This both tag line is represented as a data field, so it is converted as the following example "title(opening tag name)":"data".
+This both tag line is represented as a data field, so it is converted as the following example.
 
-We also check whether the next tag is at the same level of the current both tag and accordingly we add comma or not to our temp string.
+"Title(opening tag name)":"data".
 
-The temp string is then added to an arraylist of strings in which each entry in this arraylist represent a line.
+the temp string is then added to an array list of strings in which each entry in this array list represents a line.
 
 ###### Else if the current tag is data only
 
@@ -114,11 +114,93 @@ We loop over the characters of the XML file while transferring them to a new Arr
 
 ---
 
-|            Task             |                                       Time Complexity                                        |                                 Space Complexity                                 |
-| :-------------------------: | :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-|      Error correction       |                  O(n) Where n is the number of characters in the XML file.                   |               O(m) Where m is the number of tags in the XML file.                |
-|         Prettifying         |                  O(N) Where N is the number of characters in the XML file.                   | O(N) Created an Array list, Where N is the number of characters in the XML file. |
-|         Compression         |                     O(N) where n is the number of characters in the file                     |                                       O(1)                                       |
-|        Decompression        |                    O(n) where n is the number of characters in the file.                     |                                       O(1)                                       |
-| Conversion from XML to JSON | O(N\*m) where N is the number of tags in tag_list and m is the number of characters in a tag |                 O(N) where N is the number of tags in tag_list.                  |
-|          Minifying          |                  O(n) Where n is the number of characters in the XML file.                   |            O(n) Where n is the number of characters in the XML file.             |
+### Network analysis
+
+**From XML to User Objects:**
+
+- First, we look for the opening tag of a user then we loop over the lines until the closing tag of said user.
+
+- We extract the data of the user by looping over the lines and looking for opening tags of said data for example looking for the opening tag of id field then name field etc.
+
+- We do not add the followers’ field yet but finish looping over the whole XML and add all users to an Array List so that when we add the followers’ field, we add them as an Array List of user objects.
+
+- A user object has 4 members ID(int), Name(String), Posts(objects) and Followers(object).
+
+- The method then returns an Array List of all users in the XML file. 
+
+### Most influencer user (Max_Out_degree)
+
+- Declare max value.
+
+- Loop on all users comparing their Out-degree fields.
+
+- Return user with max degree.
+
+### Most active user (Max_In_degree)
+
+- Declare min value.
+
+- Loop on all users comparing their Out-degree fields.
+
+- Return user with max degree.
+
+ 
+
+### Mutual followers
+
+- Select 2 users and get their followers list.
+
+- Compare each follower of the first list with all the second user’s follower.
+
+- Return array of mutual users. 
+
+ 
+
+### Suggestions (Followers of Followers)
+
+- First, we look for the specified user and then begin breadth first traversal of the graph but only equal to the number of times of the followers as to reach the 2nd depth which is the followers of the main user’s followers.
+
+- That was done while keeping track of the visited nodes and the added nodes to the queue not to add duplicates.
+
+- Then it is like we took a picture of the queue at a certain time which is then returned as an Array List of Users.
+
+ 
+
+### Post Search
+
+- We search for a word in a post or a major topic name.
+
+- Returning the whole post or the topic in an Array list.
+
+- The time complexity is O(n^2).
+
+- The space complexity is O().
+
+___
+
+|              Task               | Time Complexity | Space Complexity |
+| :-----------------------------: | :-------------: | :--------------: |
+|        Error correction         |      O(N)       |       O(m)       |
+|           Prettifying           |      O(N)       |       O(N)       |
+|           Compression           |      O(N)       |       O(1)       |
+|          Decompression          |      O(N)       |       O(1)       |
+|   Conversion from XML to JSON   |     O(N*M)      |       O(m)       |
+|            Minifying            |      O(N)       |       O(N)       |
+| Most influencer  Max_Out_degree |      O(U)       |       O(F)       |
+| Most active user  Max_In_degree |      O(U)       |       O(U)       |
+|        Mutual followers         |      O(F)       |       O(F)       |
+|           User_Search           |      O(U)       |       O(1)       |
+|          Fill_in_Graph          |     O(U*F)      |       O(U)       |
+|           Post Search           |                 |                  |
+|      User Objects from XML      |      O(N)       |       O(n)       |
+|       Recommend Followers       |      O(U)       |       O(U)       |
+
+- Where N is the number of **characters** in the **XML file**.
+
+- Where m is the number of **tags** in Tag list.
+
+- Where n is the number of characters of **data fields** in the XML file.
+
+* Where U is the number of **users** in **Graph**.
+
+- Where F is the number of **Followers** of the user.
