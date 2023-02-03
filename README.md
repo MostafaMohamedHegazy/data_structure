@@ -212,3 +212,6 @@ ___
 - Where F is the number of **Followers** of the user.
 - Where P is the number of **Posts** of each user.
 - Where C is the number of **Characters** of each Post.
+___
+### Dependencies
+This Project needs to include the  Javafx library to work.
